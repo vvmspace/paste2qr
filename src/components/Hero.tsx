@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { NavigationMenu } from './NavigationMenu'
 import { ThemeToggle } from './ThemeToggle'
+import { useTranslation } from 'react-i18next'
 
 interface HeroProps {
   title: string
@@ -17,6 +18,7 @@ export function Hero({ title }: { title: string }) {
   const headerRef = useRef<HTMLDivElement>(null)
   const touchStartX = useRef<number>(0)
   const touchStartY = useRef<number>(0)
+  const { t } = useTranslation()
 
   // Handle swipe gestures
   useEffect(() => {
@@ -70,7 +72,7 @@ export function Hero({ title }: { title: string }) {
               navigator.vibrate(30)
             }
           }}
-          aria-label="Menu"
+          aria-label={t('common.menu')}
         >
           <svg className="w-5 h-5 text-gray-900 dark:text-gray-100" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />

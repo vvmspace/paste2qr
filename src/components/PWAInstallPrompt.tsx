@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: string[]
@@ -12,6 +13,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 export function PWAInstallPrompt() {
+  const { t } = useTranslation()
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   const [isInstalled, setIsInstalled] = useState(false)
@@ -82,23 +84,23 @@ export function PWAInstallPrompt() {
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-sm font-medium text-gray-900">
-            Install Paste2QR
+            {t('pwa.promptTitle')}
           </h3>
           <p className="text-xs text-gray-500 mt-1">
-            Install this app on your device for quick access to QR code generation.
+            {t('pwa.promptText')}
           </p>
           <div className="flex space-x-2 mt-3">
             <button
               onClick={handleInstallClick}
               className="bg-blue-600 text-white text-xs px-3 py-1.5 rounded-md hover:bg-blue-700 transition-colors"
             >
-              Install
+              {t('common.install')}
             </button>
             <button
               onClick={handleDismiss}
               className="text-gray-500 text-xs px-3 py-1.5 rounded-md hover:bg-gray-100 transition-colors"
             >
-              Not now
+              {t('common.notNow')}
             </button>
           </div>
         </div>

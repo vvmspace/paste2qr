@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { PWAInstallPrompt } from '../components/PWAInstallPrompt'
-import { supportedLocales, defaultLocale } from '../lib/locales'
+import { Providers } from '../components/Providers'
+import { supportedLocales, defaultLocale, getLocaleFromPathname } from '../lib/locales'
 // import { Providers } from '../components/Providers'
 // import { Analytics } from '../components/Analytics'
 
@@ -26,15 +27,15 @@ const getDefaultLocale = () => {
   }
 }
 
-// Generate alternate links for hreflang
+// Generate alternate links for hreflang (path-based locales)
 const generateAlternateLinks = () => {
   const baseUrl = getEnvVar('NEXT_PUBLIC_SITE_URL', 'http://localhost:3000')
-  const locales = ['en', 'es', 'zh', 'fr']
+  const locales = ['en', 'es', 'zh', 'fr', 'am']
   
   return locales.map(locale => ({
     rel: 'alternate',
     hreflang: locale,
-    href: `${baseUrl}?lang=${locale}`
+    href: locale === 'en' ? `${baseUrl}/` : `${baseUrl}/${locale}`
   }))
 }
 
@@ -95,7 +96,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang={getDefaultLocale()} suppressHydrationWarning>
+    <html lang={defaultLocale} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -122,8 +123,10 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} antialiased`}>
         <div className="min-h-screen bg-gray-50">
-          {children}
-          <PWAInstallPrompt />
+          <Providers>
+            {children}
+            <PWAInstallPrompt />
+          </Providers>
         </div>
       </body>
     </html>

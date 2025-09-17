@@ -3,6 +3,9 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { trackEvent } from '../lib/analytics'
+import i18n from '../lib/i18n'
+import { useTranslation } from 'react-i18next'
+import { getLocaleFromPathname, getLocalizedPathname } from '../lib/locales'
 
 interface LanguageSwitcherProps {
   currentLanguage?: string
@@ -13,9 +16,11 @@ const languages = [
   { code: 'es', name: 'Español', flag: '🇪🇸', hreflang: 'es' },
   { code: 'zh', name: '中文', flag: '🇨🇳', hreflang: 'zh' },
   { code: 'fr', name: 'Français', flag: '🇫🇷', hreflang: 'fr' },
+  { code: 'am', name: 'አማርኛ', flag: '🇪🇹', hreflang: 'am' },
 ]
 
 export function LanguageSwitcher({ currentLanguage }: LanguageSwitcherProps) {
+  const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const [currentLocale, setCurrentLocale] = useState('en')
   const containerRef = useRef<HTMLDivElement>(null)
@@ -23,24 +28,25 @@ export function LanguageSwitcher({ currentLanguage }: LanguageSwitcherProps) {
   const searchParams = useSearchParams()
   const pathname = usePathname()
 
-  // Update current locale from URL parameter
+  // Update current locale from URL path
   useEffect(() => {
-    const locale = searchParams.get('lang') || 'en'
+    const locale = getLocaleFromPathname(pathname || '/')
     setCurrentLocale(locale)
-  }, [searchParams])
+    if (i18n.language !== locale) {
+      i18n.changeLanguage(locale)
+    }
+  }, [pathname])
 
   const currentLang = languages.find(lang => lang.code === currentLocale) || languages[0]
 
   const handleLanguageSelect = (languageCode: string) => {
     setIsOpen(false)
     
-    // Create new URL with language parameter
-    const params = new URLSearchParams(searchParams.toString())
-    params.set('lang', languageCode)
-    const newUrl = `${pathname}?${params.toString()}`
-    
-    // Navigate to new URL
-    router.push(newUrl)
+    // Build path-based localized URL
+    const newPath = getLocalizedPathname(pathname || '/', languageCode as any)
+    router.push(newPath)
+    // Change i18n language
+    i18n.changeLanguage(languageCode)
     
     // Track analytics
     trackEvent('language_changed', { language: languageCode })
@@ -79,8 +85,8 @@ export function LanguageSwitcher({ currentLanguage }: LanguageSwitcherProps) {
         onClick={() => setIsOpen(!isOpen)}
         className="group w-12 h-12 md:w-10 md:h-10 rounded-full bg-transparent appearance-none flex items-center justify-center active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-0"
         data-testid="language-button"
-        aria-label={`Switch language (current: ${currentLang.name})`}
-        title={`Switch language (current: ${currentLang.name})`}
+        aria-label={t('common.switchLanguageAria', { language: currentLang.name })}
+        title={t('common.switchLanguageAria', { language: currentLang.name })}
       >
         <span className="text-3xl md:text-xl select-none">{currentLang.flag}</span>
       </button>

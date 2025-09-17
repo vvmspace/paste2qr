@@ -1,0 +1,61 @@
+{
+    "common": {
+        "appName": "Paste2QR",
+        "install": "መጫን",
+        "notNow": "አሁን አይደለም",
+        "menu": "ሜኑ",
+        "close": "ዝጋ",
+        "download": "መሸጥ",
+        "share": "መጋራት",
+        "paste": "መለጠፍ",
+        "copy": "መቅዳት",
+        "publish": "መታተም",
+        "language": "ቋንቋ",
+        "switchLanguageAria": "ቋንቋ መቀያየር (አሁኑ: {{language}})"
+    },
+    "qr": {
+        "generating": "QR ኮድ እየተፈጠረ ነው...",
+        "enterText": "QR ለመፍጠር ጽሑፍ ያስገቡ",
+        "placeholder": "QR ኮድ ለመፍጠር ማንኛውንም ጽሑፍ ይለጥፉ...",
+        "copied": "QR ኮድ ወደ ቅንጥብ ቦርድ ተቅድቷል!",
+        "copyFailed": "QR ኮድ መቅዳት አልተሳካም። እባክዎ መሸጥን ይሞክሩ።",
+        "clipboardError": "ወደ ቅንጥብ ቦርድ መድረስ አልተቻለም። እባክዎ በእጅ ይለጥፉ።",
+        "shareTitle": "QR ኮድ",
+        "shareText": "ይህን QR ኮድ ይመልከቱ!",
+        "alt": "የተፈጠረ QR ኮድ"
+    },
+    "publish": {
+        "title": "QR ኮድ ማተም",
+        "pageTitle": "የገጽ ርዕስ",
+        "pageTitlePlaceholder": "የገጽ ርዕስ ያስገቡ (አማራጭ)",
+        "description": "መግለጫ",
+        "descriptionPlaceholder": "መግለጫ ያስገቡ (አማራጭ)",
+        "language": "ቋንቋ",
+        "publishing": "እየታተመ ነው...",
+        "publishQR": "QR ኮድ ማተም",
+        "cancel": "ሰርዝ",
+        "successHeader": "በተሳካ ሁኔታ ታትሟል",
+        "successTitle": "ተሳክቷል!",
+        "successText": "የእርስዎ QR ኮድ ገጽ ታትሟል እና ለመጋራት ዝግጁ ነው!",
+        "publishedUrl": "የታተመ URL:",
+        "copyUrl": "URL መቅዳት",
+        "close": "ዝጋ",
+        "failed": "ማተም አልተሳካም"
+    },
+    "nav": {
+        "home": "መነሻ",
+        "wifi": "WiFi QR ማመንጫ",
+        "phone": "ስልክ QR ኮድ",
+        "email": "ኢሜይል QR ኮድ",
+        "sms": "SMS QR አስመጣች",
+        "contact": "የእውቂያ QR ኮድ",
+        "footerTitle": "QR ኮድ ማመንጫ",
+        "footerSubtitle": "QR ኮዶችን ወዲያውኑ ይፍጠሩ",
+        "ariaMainMenu": "ዋና ሜኑ",
+        "ariaCloseMenu": "ሜኑን ዝጋ"
+    },
+    "pwa": {
+        "promptTitle": "Paste2QR መጫን",
+        "promptText": "QR ኮድ ማመንጫ ለፍጥነት የዚህን መተግበሪያ ይጫኑ።"
+    }
+}

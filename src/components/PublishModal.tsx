@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { trackEvent } from '../lib/analytics'
+import { useTranslation } from 'react-i18next'
 
 interface PublishModalProps {
   qrCodeDataUrl: string | null
@@ -11,6 +12,7 @@ interface PublishModalProps {
 }
 
 export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishModalProps) {
+  const { t } = useTranslation()
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -47,7 +49,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
         language: formData.language 
       })
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to publish')
+      setError(err instanceof Error ? err.message : t('publish.failed'))
       trackEvent('qr_publish_error', { error: err instanceof Error ? err.message : 'Unknown error' })
     } finally {
       setIsPublishing(false)
@@ -70,7 +72,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
       <div className="fixed top-0 left-0 right-0 bottom-0 bg-white dark:bg-slate-900 z-50 flex flex-col h-screen w-screen" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-slate-700/50 flex-shrink-0">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight">Published Successfully</h2>
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight">{t('publish.successHeader')}</h2>
           <button
             onClick={onClose}
             className="p-2 -mr-2 rounded-full hover:bg-gray-100/80 dark:hover:bg-gray-800/80 active:bg-gray-200/80 dark:active:bg-gray-700/80 transition-colors"
@@ -90,15 +92,15 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
           </div>
           
           <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4 text-center tracking-tight">
-            Success!
+            {t('publish.successTitle')}
           </h3>
           
           <p className="text-gray-600 dark:text-gray-300 mb-8 text-center max-w-md leading-relaxed">
-            Your QR code page has been published and is ready to share!
+            {t('publish.successText')}
           </p>
           
           <div className="bg-gray-50 dark:bg-slate-800/50 rounded-2xl p-4 mb-8 w-full max-w-md border border-gray-200/50 dark:border-slate-700/50">
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2 font-medium">Published URL:</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2 font-medium">{t('publish.publishedUrl')}</p>
             <p className="text-sm font-mono text-gray-800 dark:text-gray-200 break-all">{publishedUrl}</p>
           </div>
           
@@ -110,14 +112,14 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
-              Copy URL
+              {t('publish.copyUrl')}
             </button>
             
             <button
               onClick={onClose}
               className="flex-1 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white font-medium py-3 px-4 rounded-2xl transition-all duration-200 shadow-sm active:scale-[0.98]"
             >
-              Close
+              {t('publish.close')}
             </button>
           </div>
         </div>
@@ -129,7 +131,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
     <div className="fixed top-0 left-0 right-0 bottom-0 bg-white dark:bg-slate-900 z-50 flex flex-col h-screen w-screen" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-slate-700/50 flex-shrink-0">
-        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight">Publish QR Code</h2>
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight">{t('publish.title')}</h2>
         <button
           onClick={onClose}
           className="p-2 -mr-2 rounded-full hover:bg-gray-100/80 dark:hover:bg-gray-800/80 active:bg-gray-200/80 dark:active:bg-gray-700/80 transition-colors"
@@ -145,25 +147,25 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
         <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Page Title
+              {t('publish.pageTitle')}
             </label>
             <input
               type="text"
               value={formData.title}
               onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-              placeholder="Enter page title (optional)"
+              placeholder={t('publish.pageTitlePlaceholder')}
               className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-colors text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Description
+              {t('publish.description')}
             </label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-              placeholder="Enter description (optional)"
+              placeholder={t('publish.descriptionPlaceholder')}
               className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-colors resize-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
               rows={4}
             />
@@ -171,7 +173,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
 
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Language
+              {t('publish.language')}
             </label>
             <select
               value={formData.language}
@@ -182,6 +184,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
               <option value="es">Español</option>
               <option value="zh">中文</option>
               <option value="fr">Français</option>
+              <option value="am">አማርኛ</option>
             </select>
           </div>
 
@@ -200,14 +203,14 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
               {isPublishing ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Publishing...
+                  {t('publish.publishing')}
                 </>
               ) : (
                 <>
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
-                  Publish QR Code
+                  {t('publish.publishQR')}
                 </>
               )}
             </button>
@@ -217,7 +220,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
               onClick={onClose}
               className="flex-1 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white font-medium py-3 px-4 rounded-2xl transition-all duration-200 shadow-sm active:scale-[0.98]"
             >
-              Cancel
+              {t('publish.cancel')}
             </button>
           </div>
         </form>

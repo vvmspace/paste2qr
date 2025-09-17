@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { supportedLocales, defaultLocale } from '../../../lib/locales'
 import { ServerUniversalPage } from '../../../components/ServerUniversalPage'
 import { loadPageConfig } from '../../../lib/configLoader'
@@ -59,6 +59,9 @@ export default async function LocalizedSlugPage({ params }: PageProps) {
   
   if (!supportedLocales.includes(locale as any)) {
     notFound()
+  }
+  if (locale === defaultLocale) {
+    redirect(`/${slug}`)
   }
   
   const result = await loadPageConfig(slug)

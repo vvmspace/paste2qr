@@ -1,0 +1,61 @@
+{
+    "common": {
+        "appName": "Paste2QR",
+        "install": "Install",
+        "notNow": "Not now",
+        "menu": "Menu",
+        "close": "Close",
+        "download": "Download",
+        "share": "Share",
+        "paste": "Paste",
+        "copy": "Copy",
+        "publish": "Publish",
+        "language": "Language",
+        "switchLanguageAria": "Switch language (current: {{language}})"
+    },
+    "qr": {
+        "generating": "Generating QR code...",
+        "enterText": "Enter text to generate QR",
+        "placeholder": "Paste any text from your clipboard to generate QR code...",
+        "copied": "QR Code copied to clipboard!",
+        "copyFailed": "Failed to copy QR code. Please try downloading it instead.",
+        "clipboardError": "Unable to access clipboard. Please paste manually.",
+        "shareTitle": "QR Code",
+        "shareText": "Check out this QR code!",
+        "alt": "Generated QR Code"
+    },
+    "publish": {
+        "title": "Publish QR Code",
+        "pageTitle": "Page Title",
+        "pageTitlePlaceholder": "Enter page title (optional)",
+        "description": "Description",
+        "descriptionPlaceholder": "Enter description (optional)",
+        "language": "Language",
+        "publishing": "Publishing...",
+        "publishQR": "Publish QR Code",
+        "cancel": "Cancel",
+        "successHeader": "Published Successfully",
+        "successTitle": "Success!",
+        "successText": "Your QR code page has been published and is ready to share!",
+        "publishedUrl": "Published URL:",
+        "copyUrl": "Copy URL",
+        "close": "Close",
+        "failed": "Failed to publish"
+    },
+    "nav": {
+        "home": "Home",
+        "wifi": "WiFi QR Generator",
+        "phone": "Phone QR Code",
+        "email": "Email QR Code",
+        "sms": "SMS QR Maker",
+        "contact": "Contact QR Code",
+        "footerTitle": "QR Code Generator",
+        "footerSubtitle": "Create QR codes instantly",
+        "ariaMainMenu": "Main menu",
+        "ariaCloseMenu": "Close menu"
+    },
+    "pwa": {
+        "promptTitle": "Install Paste2QR",
+        "promptText": "Install this app on your device for quick access to QR code generation."
+    }
+}

@@ -1,0 +1,61 @@
+{
+    "common": {
+        "appName": "Paste2QR",
+        "install": "Installer",
+        "notNow": "Pas maintenant",
+        "menu": "Menu",
+        "close": "Fermer",
+        "download": "Télécharger",
+        "share": "Partager",
+        "paste": "Coller",
+        "copy": "Copier",
+        "publish": "Publier",
+        "language": "Langue",
+        "switchLanguageAria": "Changer de langue (actuelle : {{language}})"
+    },
+    "qr": {
+        "generating": "Génération du code QR...",
+        "enterText": "Saisissez du texte pour générer un QR",
+        "placeholder": "Collez du texte pour générer un code QR...",
+        "copied": "Code QR copié dans le presse-papiers !",
+        "copyFailed": "Échec de la copie du QR. Essayez de le télécharger.",
+        "clipboardError": "Impossible d'accéder au presse-papiers. Collez manuellement.",
+        "shareTitle": "Code QR",
+        "shareText": "Découvrez ce code QR !",
+        "alt": "Code QR généré"
+    },
+    "publish": {
+        "title": "Publier le code QR",
+        "pageTitle": "Titre de la page",
+        "pageTitlePlaceholder": "Saisissez un titre (facultatif)",
+        "description": "Description",
+        "descriptionPlaceholder": "Saisissez une description (facultatif)",
+        "language": "Langue",
+        "publishing": "Publication...",
+        "publishQR": "Publier le code QR",
+        "cancel": "Annuler",
+        "successHeader": "Publication réussie",
+        "successTitle": "Succès !",
+        "successText": "Votre page de code QR a été publiée et est prête à être partagée !",
+        "publishedUrl": "URL publiée :",
+        "copyUrl": "Copier l'URL",
+        "close": "Fermer",
+        "failed": "Échec de la publication"
+    },
+    "nav": {
+        "home": "Accueil",
+        "wifi": "Générateur QR WiFi",
+        "phone": "Code QR téléphone",
+        "email": "Code QR e-mail",
+        "sms": "Créateur QR SMS",
+        "contact": "Code QR contact",
+        "footerTitle": "Générateur de codes QR",
+        "footerSubtitle": "Créez des codes QR instantanément",
+        "ariaMainMenu": "Menu principal",
+        "ariaCloseMenu": "Fermer le menu"
+    },
+    "pwa": {
+        "promptTitle": "Installer Paste2QR",
+        "promptText": "Installez cette application pour générer rapidement des codes QR."
+    }
+}

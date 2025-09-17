@@ -5,12 +5,14 @@ import QRCode from 'qrcode'
 import { FixedActionBar } from './FixedActionBar'
 import { trackEvent } from '../lib/analytics'
 import { aliasToText } from '../lib/alias'
+import { useTranslation } from 'react-i18next'
 
 interface QRGeneratorProps {
   originalText?: string
 }
 
 export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
+  const { t } = useTranslation()
   const [text, setText] = useState('')
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
@@ -86,7 +88,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
             setDefaultText('')
           }
         }
-      } else if (currentPath === '/' || currentPath === '/en' || currentPath === '/es' || currentPath === '/zh' || currentPath === '/fr') {
+      } else if (currentPath === '/' || currentPath === '/en' || currentPath === '/es' || currentPath === '/zh' || currentPath === '/fr' || currentPath === '/am') {
         // Only set URL for main page and main locale pages
         setDefaultText(currentUrl)
       } else {
@@ -133,7 +135,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
       }
     } catch (error) {
       console.error('Failed to read clipboard contents:', error)
-      alert('Unable to access clipboard. Please paste manually.')
+      alert(t('qr.clipboardError'))
     }
   }, [defaultText])
 
@@ -164,11 +166,11 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
             'image/png': blob,
           }),
         ])
-        alert('QR Code copied to clipboard!')
+        alert(t('qr.copied'))
         trackEvent('qr_copied')
       } catch (error) {
         console.error('Failed to copy QR code:', error)
-        alert('Failed to copy QR code. Please try downloading it instead.')
+        alert(t('qr.copyFailed'))
       }
     }
   }, [qrCodeDataUrl])
@@ -189,7 +191,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
       const button = document.querySelector('[data-copy-button]') as HTMLElement
       if (button) {
         const originalText = button.textContent
-        button.textContent = 'Copied!'
+        button.textContent = t('qr.copied')
         setTimeout(() => {
           button.textContent = originalText
         }, 1000)
@@ -215,8 +217,8 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
       
       if (navigator.share && navigator.canShare({ files: [file] })) {
         await navigator.share({
-          title: 'QR Code',
-          text: 'Check out this QR code!',
+          title: t('qr.shareTitle'),
+          text: t('qr.shareText'),
           files: [file]
         })
       } else {
@@ -231,7 +233,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
   }, [qrCodeDataUrl, handleCopy])
 
   return (
-    <div className="px-4 py-6">
+    <div className="px-4 py-6" data-testid="qr-generator">
       {/* QR Code Display */}
       <div className="text-center mb-8">
         {qrCodeDataUrl ? (
@@ -239,7 +241,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
             <div className="bg-white dark:bg-slate-700 p-4 rounded-2xl mb-4">
               <img
                 src={qrCodeDataUrl}
-                alt="Generated QR Code"
+                alt={t('qr.alt')}
                 className="w-72 h-72 mx-auto md:w-56 md:h-56"
               />
             </div>
@@ -250,7 +252,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              Download
+              {t('common.download')}
             </button>
           </div>
         ) : (
@@ -259,7 +261,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
               {isGenerating ? (
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                  <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">Generating QR code...</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">{t('qr.generating')}</span>
                 </div>
               ) : (
                 <div className="flex flex-col items-center gap-3">
@@ -268,7 +270,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
                     </svg>
                   </div>
-                  <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">Enter text to generate QR</span>
+                  <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">{t('qr.enterText')}</span>
                 </div>
               )}
             </div>
@@ -287,7 +289,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
               setText(newValue)
               setIsDefaultText(newValue === defaultText)
             }}
-            placeholder="Paste any text from your clipboard to generate QR code..."
+            placeholder={t('qr.placeholder')}
             className="w-full px-4 py-2 bg-transparent resize-none focus:outline-none transition-colors text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base leading-relaxed"
             rows={2}
           />

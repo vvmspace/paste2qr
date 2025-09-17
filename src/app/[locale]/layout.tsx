@@ -55,14 +55,22 @@ export async function generateMetadata({ params }: { params: { locale: string } 
       },
     },
     alternates: {
-      canonical: `${siteUrl}/${locale}`,
+      canonical: locale === 'en' ? `${siteUrl}/` : `${siteUrl}/${locale}`,
+      languages: {
+        en: `${siteUrl}/`,
+        es: `${siteUrl}/es`,
+        zh: `${siteUrl}/zh`,
+        fr: `${siteUrl}/fr`,
+        am: `${siteUrl}/am`,
+      }
     },
     openGraph: {
       type: 'website',
       locale: locale === 'en' ? 'en_US' : 
               locale === 'es' ? 'es_ES' :
               locale === 'zh' ? 'zh_CN' :
-              locale === 'fr' ? 'fr_FR' : 'en_US',
+              locale === 'fr' ? 'fr_FR' :
+              locale === 'am' ? 'am_ET' : 'en_US',
       url: `${siteUrl}/${locale}`,
       title: 'QR Code Generator - Create QR Codes Instantly',
       description: 'Generate QR codes instantly from any text. Fast, free, and easy to use QR code generator with publishing options.',
@@ -91,29 +99,9 @@ export default function LocaleLayout({
   }
 
   return (
-    <html lang={locale} suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Paste2QR" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="theme-color" content="#3b82f6" />
-        <meta name="msapplication-TileColor" content="#3b82f6" />
-        <meta name="msapplication-navbutton-color" content="#3b82f6" />
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="application-name" content="Paste2QR" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-config" content="/browserconfig.xml" />
-        <meta name="msapplication-tap-highlight" content="no" />
-      </head>
-      <body className={`${inter.className} antialiased`}>
-        <div className="min-h-screen bg-gray-50">
-          {children}
-          <PWAInstallPrompt />
-        </div>
-      </body>
-    </html>
+    <div className="min-h-screen bg-gray-50">
+      {children}
+      <PWAInstallPrompt />
+    </div>
   )
 }

@@ -1,0 +1,61 @@
+{
+    "common": {
+        "appName": "Paste2QR",
+        "install": "安装",
+        "notNow": "稍后",
+        "menu": "菜单",
+        "close": "关闭",
+        "download": "下载",
+        "share": "分享",
+        "paste": "粘贴",
+        "copy": "复制",
+        "publish": "发布",
+        "language": "语言",
+        "switchLanguageAria": "切换语言（当前：{{language}}）"
+    },
+    "qr": {
+        "generating": "正在生成二维码...",
+        "enterText": "输入文本以生成二维码",
+        "placeholder": "粘贴文本以生成二维码...",
+        "copied": "二维码已复制到剪贴板！",
+        "copyFailed": "复制失败。请尝试下载。",
+        "clipboardError": "无法访问剪贴板，请手动粘贴。",
+        "shareTitle": "二维码",
+        "shareText": "看看这个二维码！",
+        "alt": "已生成的二维码"
+    },
+    "publish": {
+        "title": "发布二维码",
+        "pageTitle": "页面标题",
+        "pageTitlePlaceholder": "输入页面标题（可选）",
+        "description": "描述",
+        "descriptionPlaceholder": "输入描述（可选）",
+        "language": "语言",
+        "publishing": "正在发布...",
+        "publishQR": "发布二维码",
+        "cancel": "取消",
+        "successHeader": "发布成功",
+        "successTitle": "成功！",
+        "successText": "你的二维码页面已发布，可立即分享！",
+        "publishedUrl": "已发布的链接：",
+        "copyUrl": "复制链接",
+        "close": "关闭",
+        "failed": "发布失败"
+    },
+    "nav": {
+        "home": "首页",
+        "wifi": "WiFi 二维码生成器",
+        "phone": "电话二维码",
+        "email": "邮件二维码",
+        "sms": "短信二维码",
+        "contact": "联系人二维码",
+        "footerTitle": "二维码生成器",
+        "footerSubtitle": "立即创建二维码",
+        "ariaMainMenu": "主菜单",
+        "ariaCloseMenu": "关闭菜单"
+    },
+    "pwa": {
+        "promptTitle": "安装 Paste2QR",
+        "promptText": "安装此应用以快速生成二维码。"
+    }
+}
