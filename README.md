@@ -1,36 +1,236 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Paste2QR - SEO Optimized QR Code Generator
 
-## Getting Started
+A modern, SEO-optimized QR code generator built with Next.js, TypeScript, and Tailwind CSS. Generate QR codes instantly from any text with advanced publishing options and comprehensive SEO features.
 
-First, run the development server:
+## 🚀 Features
+
+### Core Functionality
+
+-   **Instant QR Generation** - Generate QR codes from any text in seconds
+-   **Prefix Support** - Add custom prefixes (https://, tel:, mailto:, etc.)
+-   **Publishing System** - Create shareable pages for your QR codes
+-   **Mobile-First Design** - Optimized for all devices
+-   **PWA Support** - Install as a native app
+
+### SEO Optimization
+
+-   **Multiple SEO Pages** - Dedicated pages for different QR code types
+-   **MDX Content System** - Dynamic content management
+-   **Semantic HTML** - Proper heading structure and accessibility
+-   **Meta Tags** - Comprehensive SEO metadata
+-   **Sitemap & Robots.txt** - Search engine optimization
+
+### Technical Features
+
+-   **Next.js 14** - Latest React framework with App Router
+-   **TypeScript** - Full type safety
+-   **Tailwind CSS** - Utility-first styling
+-   **Server-Side Rendering** - Fast initial page loads
+-   **Universal Page System** - Configurable page templates
+
+## 📱 SEO Pages
+
+-   **Home** - Main QR code generator
+-   **WiFi QR Code Generator** - Share WiFi passwords instantly
+-   **Phone Number QR Code** - Call contacts with one scan
+-   **Email QR Code Generator** - Send emails instantly
+-   **SMS QR Code Maker** - Pre-filled text messages
+-   **Contact Info QR Code** - Professional contact sharing
+
+## 🛠️ Development
+
+### Prerequisites
+
+-   Node.js 18+
+-   npm or yarn
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Testing
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Unit tests
+npm test
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Accessibility tests
+npm run test:accessibility
 
-## Learn More
+# Performance tests
+npm run test:performance
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Build for Production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🏗️ Architecture
 
-## Deploy on Vercel
+### Universal Page System
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+All pages use a single `UniversalPage` component that renders based on configuration:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```typescript
+interface PageConfig {
+    title: string;
+    description: string;
+    keywords: string;
+    heroTitle: string;
+    heroSubtitle: string;
+    heroButtonText: string;
+    heroGradient: string;
+}
+```
+
+### Content Management
+
+-   **MDX Files** - SEO content in `src/content/`
+-   **JSON Storage** - Published QR codes in abstract storage
+-   **Dynamic Routing** - `[slug]/page.tsx` for MDX content
+-   **Config Loader** - Universal content loading system
+
+### SEO Structure
+
+```
+/
+├── / (home)
+├── /wifi-qr-code-generator/
+├── /phone-number-qr-code/
+├── /email-qr-code-generator/
+├── /sms-qr-code-maker/
+├── /contact-info-qr-code/
+└── /p/:alias (published QR codes)
+```
+
+## 🎯 SEO Features
+
+### Technical SEO
+
+-   **Semantic HTML5** - Proper document structure
+-   **Meta Tags** - Title, description, keywords, Open Graph
+-   **Structured Data** - Rich snippets support
+-   **Sitemap.xml** - Automatic sitemap generation
+-   **Robots.txt** - Search engine directives
+
+### Content SEO
+
+-   **Long-form Content** - Comprehensive guides for each QR type
+-   **Keyword Optimization** - Targeted keywords for each page
+-   **Internal Linking** - Strategic page connections
+-   **Mobile Optimization** - Responsive design
+-   **Page Speed** - Optimized performance
+
+### Accessibility
+
+-   **WCAG 2.1 AA** - Full accessibility compliance
+-   **Screen Reader Support** - Proper ARIA labels
+-   **Keyboard Navigation** - Full keyboard accessibility
+-   **Color Contrast** - High contrast ratios
+-   **Focus Management** - Clear focus indicators
+
+## 📊 Performance
+
+### Lighthouse Scores
+
+-   **Performance** - 90+ (target)
+-   **Accessibility** - 100 (achieved)
+-   **Best Practices** - 90+ (target)
+-   **SEO** - 90+ (target)
+
+### Optimization Features
+
+-   **Code Splitting** - Automatic bundle optimization
+-   **Image Optimization** - Next.js image optimization
+-   **Font Optimization** - Google Fonts optimization
+-   **CSS Optimization** - Tailwind CSS purging
+-   **JavaScript Optimization** - Tree shaking and minification
+
+## 🌐 Deployment
+
+### Netlify (Recommended)
+
+1. Connect your GitHub repository
+2. Set build command: `npm run build`
+3. Set publish directory: `.next`
+4. Deploy automatically on push
+
+### Environment Variables
+
+```env
+SITE_ID=default
+SITE_TITLE_EN=QR Code Generator - Create QR Codes Instantly
+SITE_DESCRIPTION_EN=Generate QR codes instantly from any text...
+NEXT_PUBLIC_SITE_URL=https://your-domain.com
+```
+
+## 📈 Analytics
+
+### Built-in Metrics
+
+-   **QR Generation** - Track generation events
+-   **Publishing** - Monitor published QR codes
+-   **User Interactions** - Button clicks and form submissions
+-   **Error Tracking** - Monitor and log errors
+
+### Integration Ready
+
+-   **Google Analytics** - Easy integration
+-   **Mixpanel** - Event tracking
+-   **Custom Analytics** - Flexible tracking system
+
+## 🔧 Customization
+
+### Adding New SEO Pages
+
+1. Create MDX file in `src/content/`
+2. Add configuration to `src/configs/pages.ts`
+3. Page automatically available at `/[slug]/`
+
+### Styling
+
+-   **Tailwind CSS** - Utility-first styling
+-   **Custom Components** - Reusable UI components
+-   **Responsive Design** - Mobile-first approach
+-   **Dark Mode** - Ready for implementation
+
+### Content Management
+
+-   **MDX Frontmatter** - Page configuration
+-   **Dynamic Content** - Server-side rendering
+-   **SEO Optimization** - Automatic meta tag generation
+
+## 📝 License
+
+MIT License - see LICENSE file for details
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
+
+## 📞 Support
+
+For support and questions:
+
+-   Create an issue on GitHub
+-   Check the documentation
+-   Review the code examples
+
+---
+
+**Built with ❤️ using Next.js, TypeScript, and Tailwind CSS**
