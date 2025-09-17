@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { PWAInstallPrompt } from '../components/PWAInstallPrompt'
 // import { Providers } from '../components/Providers'
 // import { Analytics } from '../components/Analytics'
 
@@ -92,10 +93,21 @@ export default function RootLayout({
         <meta name="theme-color" content="#3b82f6" />
         <meta name="msapplication-TileColor" content="#3b82f6" />
         <meta name="msapplication-navbutton-color" content="#3b82f6" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="application-name" content="Paste2QR" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Paste2QR" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+        <meta name="msapplication-TileColor" content="#3b82f6" />
+        <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body className={`${inter.className} antialiased`}>
         <div className="min-h-screen bg-gray-50">
           {children}
+          <PWAInstallPrompt />
         </div>
       </body>
     </html>
