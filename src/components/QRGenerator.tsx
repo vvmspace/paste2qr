@@ -52,7 +52,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
           dark: '#000000',
           light: '#FFFFFF'
         },
-        width: 160 // Smaller QR code for mobile
+        width: 288 // Crisper QR for larger mobile display
       })
 
       setQrCodeDataUrl(dataUrl)
@@ -231,40 +231,44 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
   }, [qrCodeDataUrl, handleCopy])
 
   return (
-    <div className="px-4 py-4">
+    <div className="px-4 py-6">
       {/* QR Code Display */}
-      <div className="text-center mb-6">
+      <div className="text-center mb-8">
         {qrCodeDataUrl ? (
-          <div className="inline-block p-3 bg-white border-2 border-gray-200 rounded-3xl shadow-lg">
-            <img
-              src={qrCodeDataUrl}
-              alt="Generated QR Code"
-              className="w-40 h-40 mx-auto"
-            />
+          <div className="inline-block p-6 bg-white dark:bg-slate-800 rounded-3xl shadow-lg border border-gray-200/50 dark:border-slate-700/50 max-w-sm w-full">
+            <div className="bg-white dark:bg-slate-700 p-4 rounded-2xl mb-4">
+              <img
+                src={qrCodeDataUrl}
+                alt="Generated QR Code"
+                className="w-72 h-72 mx-auto md:w-56 md:h-56"
+              />
+            </div>
             <button
               onClick={handleDownload}
-              className="mt-3 w-full bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold py-2 px-4 rounded-2xl transition-all duration-150 flex items-center justify-center gap-2 shadow-lg active:scale-95"
+              className="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 text-gray-900 dark:text-gray-100 py-3 px-4 transition-all duration-200 flex items-center justify-center gap-2 shadow-sm hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-600 active:scale-[0.98] appearance-none"
             >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               Download
             </button>
           </div>
         ) : (
-          <div className="inline-block p-3 bg-gray-100 border-2 border-gray-200 rounded-3xl">
-            <div className="w-40 h-40 bg-gray-200 rounded-2xl flex items-center justify-center">
+          <div className="inline-block p-6 bg-gray-50 dark:bg-slate-800/50 rounded-3xl border border-gray-200/50 dark:border-slate-700/50">
+            <div className="w-44 h-44 bg-gray-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center">
               {isGenerating ? (
-                <div className="flex flex-col items-center gap-2">
-                  <div className="w-8 h-8 border-3 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                  <span className="text-xs text-gray-500 font-medium">Generating...</span>
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                  <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">Generating QR code...</span>
                 </div>
               ) : (
-                <div className="flex flex-col items-center gap-2">
-                  <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
-                  </svg>
-                  <span className="text-xs text-gray-500 font-medium">Enter text to generate QR</span>
+                <div className="flex flex-col items-center gap-3">
+                  <div className="w-16 h-16 bg-gray-200 dark:bg-gray-600 rounded-2xl flex items-center justify-center">
+                    <svg className="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                    </svg>
+                  </div>
+                  <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">Enter text to generate QR</span>
                 </div>
               )}
             </div>
@@ -273,19 +277,21 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
       </div>
 
       {/* Text Input */}
-      <div className="mb-6">
-        <textarea
-          ref={textareaRef}
-          value={text}
-          onChange={(e) => {
-            const newValue = e.target.value
-            setText(newValue)
-            setIsDefaultText(newValue === defaultText)
-          }}
-              placeholder="Paste any text from your clipboard to generate QR code..."
-          className="w-full px-4 py-4 border-2 border-gray-200 rounded-3xl resize-none focus:border-blue-500 focus:outline-none transition-colors text-gray-800 placeholder-gray-400 text-base"
-          rows={3}
-        />
+      <div className="mb-8">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200/50 dark:border-slate-700/50 shadow-sm focus-within:border-blue-500/50 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all duration-200">
+          <textarea
+            ref={textareaRef}
+            value={text}
+            onChange={(e) => {
+              const newValue = e.target.value
+              setText(newValue)
+              setIsDefaultText(newValue === defaultText)
+            }}
+            placeholder="Paste any text from your clipboard to generate QR code..."
+            className="w-full px-4 py-2 bg-transparent resize-none focus:outline-none transition-colors text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base leading-relaxed"
+            rows={2}
+          />
+        </div>
       </div>
 
       {/* Fixed Action Bar */}

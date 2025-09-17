@@ -67,55 +67,55 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
 
   if (publishedUrl) {
     return (
-      <div className="fixed top-0 left-0 right-0 bottom-0 bg-white z-50 flex flex-col h-screen w-screen" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
+      <div className="fixed top-0 left-0 right-0 bottom-0 bg-white dark:bg-slate-900 z-50 flex flex-col h-screen w-screen" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 flex-shrink-0">
-          <h2 className="text-xl font-bold text-gray-900">Published Successfully</h2>
+        <div className="flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-slate-700/50 flex-shrink-0">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight">Published Successfully</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="p-2 -mr-2 rounded-full hover:bg-gray-100/80 dark:hover:bg-gray-800/80 active:bg-gray-200/80 dark:active:bg-gray-700/80 transition-colors"
           >
-            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
 
         {/* Content */}
         <div className="flex-1 flex flex-col items-center justify-center p-6 min-h-0">
-          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
-            <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          <div className="w-20 h-20 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-6">
+            <svg className="w-10 h-10 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
           </div>
           
-          <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+          <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-4 text-center tracking-tight">
             Success!
           </h3>
           
-          <p className="text-gray-600 mb-8 text-center max-w-md">
+          <p className="text-gray-600 dark:text-gray-300 mb-8 text-center max-w-md leading-relaxed">
             Your QR code page has been published and is ready to share!
           </p>
           
-          <div className="bg-gray-50 rounded-lg p-4 mb-8 w-full max-w-md">
-            <p className="text-sm text-gray-500 mb-2">Published URL:</p>
-            <p className="text-sm font-mono text-gray-800 break-all">{publishedUrl}</p>
+          <div className="bg-gray-50 dark:bg-slate-800/50 rounded-2xl p-4 mb-8 w-full max-w-md border border-gray-200/50 dark:border-slate-700/50">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2 font-medium">Published URL:</p>
+            <p className="text-sm font-mono text-gray-800 dark:text-gray-200 break-all">{publishedUrl}</p>
           </div>
           
           <div className="flex gap-3 w-full max-w-md">
             <button
               onClick={handleCopyUrl}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition-colors flex items-center justify-center gap-2"
+              className="flex-1 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-medium py-3 px-4 rounded-2xl transition-all duration-200 flex items-center justify-center gap-2 shadow-sm active:scale-[0.98]"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
               Copy URL
             </button>
             
             <button
               onClick={onClose}
-              className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-xl transition-colors"
+              className="flex-1 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white font-medium py-3 px-4 rounded-2xl transition-all duration-200 shadow-sm active:scale-[0.98]"
             >
               Close
             </button>
@@ -126,16 +126,16 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
   }
 
   return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 bg-white z-50 flex flex-col h-screen w-screen" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
+    <div className="fixed top-0 left-0 right-0 bottom-0 bg-white dark:bg-slate-900 z-50 flex flex-col h-screen w-screen" style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}>
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 flex-shrink-0">
-        <h2 className="text-xl font-bold text-gray-900">Publish QR Code</h2>
+      <div className="flex items-center justify-between p-4 border-b border-gray-200/50 dark:border-slate-700/50 flex-shrink-0">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight">Publish QR Code</h2>
         <button
           onClick={onClose}
-          className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          className="p-2 -mr-2 rounded-full hover:bg-gray-100/80 dark:hover:bg-gray-800/80 active:bg-gray-200/80 dark:active:bg-gray-700/80 transition-colors"
         >
-          <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
@@ -144,7 +144,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
       <div className="flex-1 p-6 overflow-y-auto min-h-0">
         <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Page Title
             </label>
             <input
@@ -152,31 +152,31 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
               value={formData.title}
               onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
               placeholder="Enter page title (optional)"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
+              className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-colors text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Description
             </label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
               placeholder="Enter description (optional)"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors resize-none"
+              className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-colors resize-none text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400"
               rows={4}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Language
             </label>
             <select
               value={formData.language}
               onChange={(e) => setFormData(prev => ({ ...prev, language: e.target.value }))}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors"
+              className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-2xl focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-colors text-gray-900 dark:text-gray-100"
             >
               <option value="en">English</option>
               <option value="es">Español</option>
@@ -186,8 +186,8 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
           </div>
 
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-              <p className="text-red-600 text-sm">{error}</p>
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-4">
+              <p className="text-red-600 dark:text-red-400 text-sm font-medium">{error}</p>
             </div>
           )}
 
@@ -195,7 +195,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
             <button
               type="submit"
               disabled={isPublishing}
-              className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-3 px-4 rounded-xl transition-colors disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="flex-1 bg-blue-500 hover:bg-blue-600 active:bg-blue-700 disabled:bg-blue-400 text-white font-medium py-3 px-4 rounded-2xl transition-all duration-200 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm active:scale-[0.98] disabled:scale-100"
             >
               {isPublishing ? (
                 <>
@@ -204,8 +204,8 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
                 </>
               ) : (
                 <>
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                   </svg>
                   Publish QR Code
                 </>
@@ -215,7 +215,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-xl transition-colors"
+              className="flex-1 bg-gray-500 hover:bg-gray-600 active:bg-gray-700 text-white font-medium py-3 px-4 rounded-2xl transition-all duration-200 shadow-sm active:scale-[0.98]"
             >
               Cancel
             </button>

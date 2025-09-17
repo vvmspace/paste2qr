@@ -79,14 +79,14 @@ export function ThemeToggle() {
     <div className="relative">
       <button
         onClick={toggleTheme}
-        className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+        className="group w-12 h-12 md:w-10 md:h-10 rounded-full bg-transparent appearance-none flex items-center justify-center active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/30 focus:ring-offset-0"
         aria-label={`Switch to ${effectiveTheme === 'light' ? 'dark' : 'light'} theme`}
         title={`Switch to ${effectiveTheme === 'light' ? 'dark' : 'light'} theme`}
       >
         {effectiveTheme === 'light' ? (
           // Sun icon for light theme
           <svg
-            className="w-5 h-5 text-yellow-500"
+            className="w-6 h-6 md:w-4 md:h-4 text-amber-500"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +100,7 @@ export function ThemeToggle() {
         ) : (
           // Moon icon for dark theme
           <svg
-            className="w-5 h-5 text-blue-400"
+            className="w-6 h-6 md:w-4 md:h-4 text-slate-400"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
