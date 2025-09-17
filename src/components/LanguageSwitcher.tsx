@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { trackEvent } from '../lib/analytics'
-import i18n from '../lib/i18n'
+import i18n from '../lib/i18n-client'
 import { useTranslation } from 'react-i18next'
 import { getLocaleFromPathname, getLocalizedPathname } from '../lib/locales'
 

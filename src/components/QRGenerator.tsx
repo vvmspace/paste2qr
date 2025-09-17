@@ -71,7 +71,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const currentUrl = window.location.href
-      const currentPath = window.location.pathname
+      const currentPath = window.location.pathname || ''
       
       // For published QR pages, use originalText if provided, otherwise try to extract from alias
       if (currentPath.startsWith('/qr/')) {
@@ -124,20 +124,45 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
         navigator.vibrate(50)
       }
       
-      const pastedText = await navigator.clipboard.readText()
-      setText(pastedText)
-      setIsDefaultText(pastedText === defaultText)
-      trackEvent('text_pasted', { textLength: pastedText.length })
+      // Check if clipboard API is available and has readText method
+      if (navigator.clipboard && navigator.clipboard.readText) {
+        try {
+          const pastedText = await navigator.clipboard.readText()
+          setText(pastedText)
+          setIsDefaultText(pastedText === defaultText)
+          trackEvent('text_pasted', { textLength: pastedText.length })
+          
+          // Focus on textarea after paste
+          if (textareaRef.current) {
+            textareaRef.current.focus()
+          }
+          return
+        } catch (clipboardError) {
+          console.warn('Clipboard API failed, trying fallback:', clipboardError)
+        }
+      }
       
-      // Focus on textarea after paste
+      // Fallback for Safari and other browsers without clipboard API support
+      // Focus on textarea and show instruction
       if (textareaRef.current) {
         textareaRef.current.focus()
+        textareaRef.current.select()
+        
+        // Show instruction for manual paste
+        const instruction = t('qr.pasteInstruction')
+        if (instruction && instruction !== 'qr.pasteInstruction') {
+          alert(instruction)
+        } else {
+          alert('Please paste your text using Cmd+V (Mac) or Ctrl+V (Windows/Linux)')
+        }
       }
+      
+      trackEvent('text_paste_fallback_used')
     } catch (error) {
-      console.error('Failed to read clipboard contents:', error)
+      console.error('Failed to handle paste:', error)
       alert(t('qr.clipboardError'))
     }
-  }, [defaultText])
+  }, [defaultText, t])
 
   const handleDownload = useCallback(() => {
     if (qrCodeDataUrl) {

@@ -24,6 +24,7 @@
         "copied": "QR Code copied to clipboard!",
         "copyFailed": "Failed to copy QR code. Please try downloading it instead.",
         "clipboardError": "Unable to access clipboard. Please paste manually.",
+        "pasteInstruction": "Please paste your text using Cmd+V (Mac) or Ctrl+V (Windows/Linux)",
         "shareTitle": "QR Code",
         "shareText": "Check out this QR code!",
         "alt": "Generated QR Code"
@@ -60,7 +61,8 @@
     },
     "pwa": {
         "promptTitle": "Install Paste2QR",
-        "promptText": "Install this app on your device for quick access to QR code generation."
+        "promptText": "Install this app on your device for quick access to QR code generation.",
+        "iosInstallInstructions": "To install this app on your iOS device:\n\n1. Tap the Share button (square with arrow up)\n2. Scroll down and tap 'Add to Home Screen'\n3. Tap 'Add' to confirm\n\nThe app will be installed on your home screen for quick access."
     },
     "header": {
         "title": "Paste to QR Code"

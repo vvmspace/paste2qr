@@ -24,6 +24,7 @@
         "copied": "Code QR copié dans le presse-papiers !",
         "copyFailed": "Échec de la copie du QR. Essayez de le télécharger.",
         "clipboardError": "Impossible d'accéder au presse-papiers. Collez manuellement.",
+        "pasteInstruction": "Veuillez coller votre texte en utilisant Cmd+V (Mac) ou Ctrl+V (Windows/Linux)",
         "shareTitle": "Code QR",
         "shareText": "Découvrez ce code QR !",
         "alt": "Code QR généré"
@@ -60,7 +61,8 @@
     },
     "pwa": {
         "promptTitle": "Installer Paste2QR",
-        "promptText": "Installez cette application pour générer rapidement des codes QR."
+        "promptText": "Installez cette application pour générer rapidement des codes QR.",
+        "iosInstallInstructions": "Pour installer cette application sur votre appareil iOS :\n\n1. Appuyez sur le bouton Partager (carré avec flèche vers le haut)\n2. Faites défiler vers le bas et appuyez sur 'Ajouter à l'écran d'accueil'\n3. Appuyez sur 'Ajouter' pour confirmer\n\nL'application sera installée sur votre écran d'accueil pour un accès rapide."
     },
     "header": {
         "title": "Coller vers Code QR"

@@ -19,6 +19,7 @@ export interface PageSEOConfig {
   zh: LocalizedSEO
   fr: LocalizedSEO
   am: LocalizedSEO
+  pt: LocalizedSEO
 }
 
 // Get environment variables safely
@@ -43,7 +44,8 @@ export const seoConfigs: Record<string, PageSEOConfig> = {
         es: `${getSiteUrl()}/es`,
         zh: `${getSiteUrl()}/zh`,
         fr: `${getSiteUrl()}/fr`,
-        am: `${getSiteUrl()}/am`
+        am: `${getSiteUrl()}/am`,
+        pt: `${getSiteUrl()}/pt`
       }
     },
     es: {
@@ -56,7 +58,8 @@ export const seoConfigs: Record<string, PageSEOConfig> = {
         es: `${getSiteUrl()}/es`,
         zh: `${getSiteUrl()}/zh`,
         fr: `${getSiteUrl()}/fr`,
-        am: `${getSiteUrl()}/am`
+        am: `${getSiteUrl()}/am`,
+        pt: `${getSiteUrl()}/pt`
       }
     },
     zh: {
@@ -69,7 +72,8 @@ export const seoConfigs: Record<string, PageSEOConfig> = {
         es: `${getSiteUrl()}/es`,
         zh: `${getSiteUrl()}/zh`,
         fr: `${getSiteUrl()}/fr`,
-        am: `${getSiteUrl()}/am`
+        am: `${getSiteUrl()}/am`,
+        pt: `${getSiteUrl()}/pt`
       }
     },
     fr: {
@@ -82,7 +86,8 @@ export const seoConfigs: Record<string, PageSEOConfig> = {
         es: `${getSiteUrl()}/es`,
         zh: `${getSiteUrl()}/zh`,
         fr: `${getSiteUrl()}/fr`,
-        am: `${getSiteUrl()}/am`
+        am: `${getSiteUrl()}/am`,
+        pt: `${getSiteUrl()}/pt`
       }
     },
     am: {
@@ -95,7 +100,22 @@ export const seoConfigs: Record<string, PageSEOConfig> = {
         es: `${getSiteUrl()}/es`,
         zh: `${getSiteUrl()}/zh`,
         fr: `${getSiteUrl()}/fr`,
-        am: `${getSiteUrl()}/am`
+        am: `${getSiteUrl()}/am`,
+        pt: `${getSiteUrl()}/pt`
+      }
+    },
+    pt: {
+      title: 'Colar para Código QR - Gerador Instantâneo | Gratuito e Fácil',
+      description: 'Gere códigos QR instantaneamente a partir de qualquer texto. Cole da área de transferência e obtenha código QR em segundos. Gerador gratuito, rápido e fácil de usar.',
+      keywords: 'colar para código QR, gerador QR colar, área de transferência para QR, código QR instantâneo, texto para QR, colar texto QR, gerador QR gratuito',
+      canonicalUrl: `${getSiteUrl()}/pt`,
+      alternateUrls: {
+        en: getSiteUrl(),
+        es: `${getSiteUrl()}/es`,
+        zh: `${getSiteUrl()}/zh`,
+        fr: `${getSiteUrl()}/fr`,
+        am: `${getSiteUrl()}/am`,
+        pt: `${getSiteUrl()}/pt`
       }
     }
   },
@@ -162,7 +182,22 @@ export const seoConfigs: Record<string, PageSEOConfig> = {
         es: `${getSiteUrl()}/es/wifi-qr-code-generator`,
         zh: `${getSiteUrl()}/zh/wifi-qr-code-generator`,
         fr: `${getSiteUrl()}/fr/wifi-qr-code-generator`,
-        am: `${getSiteUrl()}/am/wifi-qr-code-generator`
+        am: `${getSiteUrl()}/am/wifi-qr-code-generator`,
+        pt: `${getSiteUrl()}/pt/wifi-qr-code-generator`
+      }
+    },
+    pt: {
+      title: 'Gerador de Código QR WiFi - Compartilhe Senha WiFi Instantaneamente | Gratuito',
+      description: 'Gere códigos QR WiFi instantaneamente. Compartilhe sua rede WiFi com convidados usando códigos QR escaneáveis. Gerador gratuito e fácil de usar.',
+      keywords: 'código QR wifi, senha wifi QR, compartilhar wifi QR, gerador QR wifi, wifi QR gratuito, wifi QR instantâneo',
+      canonicalUrl: `${getSiteUrl()}/pt/wifi-qr-code-generator`,
+      alternateUrls: {
+        en: `${getSiteUrl()}/wifi-qr-code-generator`,
+        es: `${getSiteUrl()}/es/wifi-qr-code-generator`,
+        zh: `${getSiteUrl()}/zh/wifi-qr-code-generator`,
+        fr: `${getSiteUrl()}/fr/wifi-qr-code-generator`,
+        am: `${getSiteUrl()}/am/wifi-qr-code-generator`,
+        pt: `${getSiteUrl()}/pt/wifi-qr-code-generator`
       }
     }
   }

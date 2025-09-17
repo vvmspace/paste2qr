@@ -33,15 +33,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(),
         changeFrequency: page.slug === 'home' ? 'daily' : 'weekly',
         priority: page.slug === 'home' ? 1.0 : 0.8,
-        alternates: {
-          languages: {
-            en: baseUrl + (page.path ? `/${page.path}` : ''),
-            es: `${baseUrl}/es${page.path ? `/${page.path}` : ''}`,
-            zh: `${baseUrl}/zh${page.path ? `/${page.path}` : ''}`,
-            fr: `${baseUrl}/fr${page.path ? `/${page.path}` : ''}`,
-            am: `${baseUrl}/am${page.path ? `/${page.path}` : ''}`,
-          }
-        }
       })
     }
   }

@@ -17,15 +17,35 @@ export function PWAInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   const [isInstalled, setIsInstalled] = useState(false)
+  const [isIOS, setIsIOS] = useState(false)
+  const [isStandalone, setIsStandalone] = useState(false)
 
   useEffect(() => {
+    // Detect iOS
+    const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+    setIsIOS(iOS)
+
     // Check if app is already installed
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      setIsInstalled(true)
+    const standalone = window.matchMedia('(display-mode: standalone)').matches || 
+                      (window.navigator as any).standalone === true
+    setIsStandalone(standalone)
+    setIsInstalled(standalone)
+
+    if (standalone) {
       return
     }
 
-    // Listen for the beforeinstallprompt event
+    // For iOS Safari, show install prompt after a delay
+    if (iOS) {
+      const timer = setTimeout(() => {
+        setShowInstallPrompt(true)
+      }, 3000) // Show after 3 seconds
+      
+      return () => clearTimeout(timer)
+    }
+
+    // For other browsers, listen for the beforeinstallprompt event
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault()
       setDeferredPrompt(e as BeforeInstallPromptEvent)
@@ -49,6 +69,13 @@ export function PWAInstallPrompt() {
   }, [])
 
   const handleInstallClick = async () => {
+    if (isIOS) {
+      // For iOS, show instructions
+      alert(t('pwa.iosInstallInstructions'))
+      setShowInstallPrompt(false)
+      return
+    }
+
     if (!deferredPrompt) return
 
     deferredPrompt.prompt()
@@ -69,8 +96,14 @@ export function PWAInstallPrompt() {
     setDeferredPrompt(null)
   }
 
-  // Don't show if already installed or no prompt available
-  if (isInstalled || !showInstallPrompt || !deferredPrompt) {
+  // Don't show if already installed
+  if (isInstalled) {
+    return null
+  }
+
+  // For iOS, show prompt even without deferredPrompt
+  // For other browsers, only show if deferredPrompt is available
+  if (!showInstallPrompt || (!isIOS && !deferredPrompt)) {
     return null
   }
 

@@ -1,3 +1,6 @@
+// Client-side i18n configuration
+// This file is safe to import in client components
+
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
@@ -66,13 +69,3 @@ if (!i18n.isInitialized) {
 }
 
 export default i18n
-
-
-
-
-
-
-
-
-
-

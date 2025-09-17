@@ -28,7 +28,7 @@ export function loadLocalizedMDX(slug: string): MDXPage | null {
     const locales: LocalizedMDXContent = {}
     
     // Supported locales
-    const supportedLocales = ['en', 'es', 'zh', 'fr', 'am']
+    const supportedLocales = ['en', 'es', 'zh', 'fr', 'am', 'pt']
     
     for (const locale of supportedLocales) {
       const filePath = path.join(contentDir, `${slug}.${locale}.mdx`)
@@ -85,7 +85,7 @@ export function getAllMDXPages(): string[] {
     files.forEach(file => {
       if (file.endsWith('.mdx')) {
         // Remove locale suffix and .mdx extension
-        const slug = file.replace(/\.(en|es|zh|fr|am)\.mdx$/, '').replace(/\.mdx$/, '')
+        const slug = file.replace(/\.(en|es|zh|fr|am|pt)\.mdx$/, '').replace(/\.mdx$/, '')
         pages.add(slug)
       }
     })
@@ -132,14 +132,16 @@ export async function getLocalizedMDXContent(slug: string, locale: string): Prom
     
     if (fs.existsSync(filePath)) {
       const fileContent = fs.readFileSync(filePath, 'utf8')
-      return fileContent
+      const { content } = matter(fileContent)
+      return content
     }
     
     // Fallback to English
     const fallbackPath = path.join(contentDir, `${slug}.en.mdx`)
     if (fs.existsSync(fallbackPath)) {
       const fileContent = fs.readFileSync(fallbackPath, 'utf8')
-      return fileContent
+      const { content } = matter(fileContent)
+      return content
     }
     
     return null

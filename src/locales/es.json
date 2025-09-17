@@ -24,6 +24,7 @@
         "copied": "¡Código QR copiado al portapapeles!",
         "copyFailed": "No se pudo copiar el QR. Prueba a descargarlo.",
         "clipboardError": "No se puede acceder al portapapeles. Pega manualmente.",
+        "pasteInstruction": "Por favor, pega tu texto usando Cmd+V (Mac) o Ctrl+V (Windows/Linux)",
         "shareTitle": "Código QR",
         "shareText": "¡Mira este código QR!",
         "alt": "Código QR generado"
@@ -60,7 +61,8 @@
     },
     "pwa": {
         "promptTitle": "Instalar Paste2QR",
-        "promptText": "Instala esta app para acceder rápido a la generación de QR."
+        "promptText": "Instala esta app para acceder rápido a la generación de QR.",
+        "iosInstallInstructions": "Para instalar esta app en tu dispositivo iOS:\n\n1. Toca el botón Compartir (cuadrado con flecha hacia arriba)\n2. Desplázate hacia abajo y toca 'Agregar a pantalla de inicio'\n3. Toca 'Agregar' para confirmar\n\nLa app se instalará en tu pantalla de inicio para acceso rápido."
     },
     "header": {
         "title": "Pegar a Código QR"

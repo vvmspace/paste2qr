@@ -37,6 +37,12 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  // i18n configuration
+  i18n: {
+    locales: ['en', 'es', 'zh', 'fr', 'am', 'pt'],
+    defaultLocale: 'en',
+    localeDetection: true,
+  },
   async rewrites() {
     return [
       {

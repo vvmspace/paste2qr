@@ -52,6 +52,10 @@ export default async function HomePage() {
         description: seo.description,
         keywords: seo.keywords,
         canonicalUrl: seo.canonicalUrl,
+        heroTitle: seo.title,
+        heroSubtitle: seo.description,
+        heroButtonText: 'Paste & Generate',
+        heroGradient: 'from-blue-600 to-blue-800',
       }} mdxSource={mdxSource || undefined} />
     </>
   )

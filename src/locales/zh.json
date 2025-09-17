@@ -24,6 +24,7 @@
         "copied": "二维码已复制到剪贴板！",
         "copyFailed": "复制失败。请尝试下载。",
         "clipboardError": "无法访问剪贴板，请手动粘贴。",
+        "pasteInstruction": "请使用 Cmd+V (Mac) 或 Ctrl+V (Windows/Linux) 粘贴您的文本",
         "shareTitle": "二维码",
         "shareText": "看看这个二维码！",
         "alt": "已生成的二维码"
@@ -60,7 +61,8 @@
     },
     "pwa": {
         "promptTitle": "安装 Paste2QR",
-        "promptText": "安装此应用以快速生成二维码。"
+        "promptText": "安装此应用以快速生成二维码。",
+        "iosInstallInstructions": "要在您的 iOS 设备上安装此应用：\n\n1. 点击分享按钮（带向上箭头的方形）\n2. 向下滚动并点击\"添加到主屏幕\"\n3. 点击\"添加\"确认\n\n应用将安装到您的主屏幕上以便快速访问。"
     },
     "header": {
         "title": "粘贴生成二维码"
