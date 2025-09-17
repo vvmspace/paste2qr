@@ -40,16 +40,16 @@ export function NavigationMenu({ isOpen, onClose }: NavigationMenuProps) {
       />
       
       {/* Menu */}
-      <div className="fixed top-0 left-0 h-full w-80 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out">
+      <div className="fixed top-0 left-0 h-full w-80 bg-white dark:bg-gray-800 shadow-xl z-50 transform transition-transform duration-300 ease-in-out">
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-xl font-bold text-gray-900">Menu</h2>
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">Menu</h2>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl hover:bg-gray-100 active:bg-gray-200 transition-colors"
+              className="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 active:bg-gray-200 dark:active:bg-gray-600 transition-colors"
             >
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -62,14 +62,14 @@ export function NavigationMenu({ isOpen, onClose }: NavigationMenuProps) {
                 key={item.href}
                 href={item.href}
                 onClick={() => handleLinkClick(item.href, item.label)}
-                className="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 active:bg-gray-100 transition-colors group"
+                className="flex items-center gap-4 p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 active:bg-gray-100 dark:active:bg-gray-600 transition-colors group"
               >
                 <span className="text-2xl">{item.icon}</span>
-                <span className="text-gray-700 font-medium group-hover:text-gray-900">
+                <span className="text-gray-700 dark:text-gray-300 font-medium group-hover:text-gray-900 dark:group-hover:text-gray-100">
                   {item.label}
                 </span>
                 <svg 
-                  className="w-5 h-5 text-gray-400 ml-auto group-hover:text-gray-600" 
+                  className="w-5 h-5 text-gray-400 dark:text-gray-500 ml-auto group-hover:text-gray-600 dark:group-hover:text-gray-300" 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -81,11 +81,11 @@ export function NavigationMenu({ isOpen, onClose }: NavigationMenuProps) {
           </nav>
 
           {/* Footer */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <p className="text-sm text-gray-500 text-center">
+          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+            <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
               QR Code Generator
             </p>
-            <p className="text-xs text-gray-400 text-center mt-1">
+            <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-1">
               Create QR codes instantly
             </p>
           </div>
