@@ -5,6 +5,15 @@ import { PageConfig } from '../configs/pages'
 import { storage } from './storage'
 import { isValidAlias } from './alias'
 
+// Get environment variables safely
+const getSiteUrl = () => {
+  try {
+    return process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  } catch {
+    return 'http://localhost:3000'
+  }
+}
+
 export interface MDXContent {
   config: PageConfig
   source: string
@@ -23,7 +32,7 @@ export async function loadMDXConfig(slug: string): Promise<MDXContent | null> {
 
     return {
       config: frontmatter.config,
-      source: content
+      source: source
     }
   } catch (error) {
     console.error(`Failed to load MDX config for ${slug}:`, error)
@@ -81,8 +90,12 @@ export async function loadPageConfig(slug: string): Promise<{ config: PageConfig
       const aliasConfig: PageConfig = {
         title: `QR Code: ${textFromAlias.substring(0, 50)}${textFromAlias.length > 50 ? '...' : ''}`,
         description: `QR code for: ${textFromAlias}`,
-        keywords: ['qr code', 'paste to qr', 'text to qr'],
-        canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/qr/${slug}`,
+        keywords: 'qr code, paste to qr, text to qr',
+        heroTitle: 'Paste to QR Code',
+        heroSubtitle: `QR code for: ${textFromAlias}`,
+        heroButtonText: 'Paste & Generate',
+        heroGradient: 'from-blue-600 to-blue-800',
+        canonicalUrl: `${getSiteUrl()}/qr/${slug}`,
       }
       
       return {

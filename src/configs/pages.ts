@@ -1,3 +1,12 @@
+// Get environment variables safely
+const getSiteUrl = () => {
+  try {
+    return process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  } catch {
+    return 'http://localhost:3000'
+  }
+}
+
 export interface PageConfig {
   title: string
   description: string
@@ -38,7 +47,7 @@ export const pageConfigs: Record<string, PageConfig> = {
     heroSubtitle: 'Paste any text from your clipboard and get a QR code instantly. No typing, no complexity - just paste and generate.',
     heroButtonText: 'Paste & Generate',
     heroGradient: 'from-blue-600 to-blue-800',
-    canonicalUrl: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+    canonicalUrl: getSiteUrl(),
   },
   'wifi-qr-code-generator': {
     title: 'Paste WiFi Password to QR Code - Instant WiFi QR Generator',
@@ -48,7 +57,7 @@ export const pageConfigs: Record<string, PageConfig> = {
     heroSubtitle: 'Paste your WiFi password and get a QR code instantly. Share your network with guests in seconds.',
     heroButtonText: 'Paste WiFi & Generate',
     heroGradient: 'from-green-600 to-green-800',
-    canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/wifi-qr-code-generator`,
+    canonicalUrl: `${getSiteUrl()}/wifi-qr-code-generator`,
   },
   'phone-number-qr-code': {
     title: 'Paste Phone Number to QR Code - Instant Call QR Generator',
@@ -58,7 +67,7 @@ export const pageConfigs: Record<string, PageConfig> = {
     heroSubtitle: 'Paste your phone number and get a QR code instantly. Let people call you with a simple scan.',
     heroButtonText: 'Paste Phone & Generate',
     heroGradient: 'from-purple-600 to-purple-800',
-    canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/phone-number-qr-code`,
+    canonicalUrl: `${getSiteUrl()}/phone-number-qr-code`,
   },
   'email-qr-code-generator': {
     title: 'Paste Email to QR Code - Instant Email QR Generator',
@@ -68,7 +77,7 @@ export const pageConfigs: Record<string, PageConfig> = {
     heroSubtitle: 'Paste your email address and get a QR code instantly. Let people email you with a simple scan.',
     heroButtonText: 'Paste Email & Generate',
     heroGradient: 'from-red-600 to-red-800',
-    canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/email-qr-code-generator`,
+    canonicalUrl: `${getSiteUrl()}/email-qr-code-generator`,
   },
   'sms-qr-code-maker': {
     title: 'Paste SMS to QR Code - Instant Text QR Generator',
@@ -78,7 +87,7 @@ export const pageConfigs: Record<string, PageConfig> = {
     heroSubtitle: 'Paste your phone number and message to get a QR code instantly. Let people text you with a simple scan.',
     heroButtonText: 'Paste SMS & Generate',
     heroGradient: 'from-orange-600 to-orange-800',
-    canonicalUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/sms-qr-code-maker`,
+    canonicalUrl: `${getSiteUrl()}/sms-qr-code-maker`,
   },
 }
 

@@ -30,7 +30,16 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
     setIsGenerating(true)
     try {
       // Get prefix from environment or config (default empty as per requirements)
-      const prefix = process.env.NEXT_PUBLIC_QR_PREFIX || ''
+      // Get environment variables safely
+      const getEnvVar = (key: string, defaultValue: string) => {
+        try {
+          return process.env[key] || defaultValue
+        } catch {
+          return defaultValue
+        }
+      }
+      
+      const prefix = getEnvVar('NEXT_PUBLIC_QR_PREFIX', '')
       const fullText = prefix + textToGenerate
 
       // Generate QR code with minimal error correction for shorter text

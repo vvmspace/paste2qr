@@ -91,7 +91,13 @@ export function FixedActionBar({
         <PublishModal
           qrCodeDataUrl={qrCodeDataUrl}
           text={text}
-          prefix={process.env.NEXT_PUBLIC_QR_PREFIX || ''}
+          prefix={(() => {
+            try {
+              return process.env.NEXT_PUBLIC_QR_PREFIX || ''
+            } catch {
+              return ''
+            }
+          })()}
           onClose={onCloseModal}
         />
       )}

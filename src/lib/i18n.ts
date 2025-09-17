@@ -14,14 +14,31 @@ const resources = {
   fr: { translation: fr },
 }
 
+// Get default locale safely
+const getDefaultLocale = () => {
+  try {
+    return process.env.DEFAULT_LOCALE || 'en'
+  } catch {
+    return 'en'
+  }
+}
+
+const getNodeEnv = () => {
+  try {
+    return process.env.NODE_ENV === 'development'
+  } catch {
+    return false
+  }
+}
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: process.env.DEFAULT_LOCALE || 'en',
-    lng: process.env.DEFAULT_LOCALE || 'en',
-    debug: process.env.NODE_ENV === 'development',
+    fallbackLng: getDefaultLocale(),
+    lng: getDefaultLocale(),
+    debug: getNodeEnv(),
     
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],

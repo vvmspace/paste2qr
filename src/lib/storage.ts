@@ -151,11 +151,20 @@ export class MemoryStorage extends AbstractStorage {
   }
 }
 
+// Get environment variables safely
+const getEnvVar = (key: string, defaultValue: string) => {
+  try {
+    return process.env[key] || defaultValue
+  } catch {
+    return defaultValue
+  }
+}
+
 /**
  * Storage factory
  */
 export function createStorage(config: StorageConfig): AbstractStorage {
-  const storageType = process.env.STORAGE_TYPE || 'filesystem'
+  const storageType = getEnvVar('STORAGE_TYPE', 'filesystem')
   
   switch (storageType) {
     case 'memory':
@@ -170,8 +179,8 @@ export function createStorage(config: StorageConfig): AbstractStorage {
  * Default storage instance
  */
 export const storage = createStorage({
-  siteId: process.env.SITE_ID || 'default',
-  basePath: process.env.STORAGE_BASE_PATH || './public/data'
+  siteId: getEnvVar('SITE_ID', 'default'),
+  basePath: getEnvVar('STORAGE_BASE_PATH', './public/data')
 })
 
 
