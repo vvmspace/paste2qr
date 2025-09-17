@@ -2,14 +2,16 @@ import { QRGenerator } from './QRGenerator'
 import { Hero } from './Hero'
 import { ServerMDXContent } from './ServerMDXContent'
 import { PageConfig } from '../configs/pages'
+import { type SupportedLocale } from '../lib/locales'
 
 interface ServerUniversalPageProps {
   config: PageConfig
   mdxSource?: string
   originalText?: string
+  locale?: SupportedLocale
 }
 
-export function ServerUniversalPage({ config, mdxSource, originalText }: ServerUniversalPageProps) {
+export function ServerUniversalPage({ config, mdxSource, originalText, locale }: ServerUniversalPageProps) {
   return (
     <main className="min-h-screen bg-gray-50 pb-24">
       <Hero title={config.heroTitle} />
@@ -24,4 +26,6 @@ export function ServerUniversalPage({ config, mdxSource, originalText }: ServerU
     </main>
   )
 }
+
+
 

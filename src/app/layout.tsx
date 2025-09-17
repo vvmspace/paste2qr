@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { PWAInstallPrompt } from '../components/PWAInstallPrompt'
+import { supportedLocales, defaultLocale } from '../lib/locales'
 // import { Providers } from '../components/Providers'
 // import { Analytics } from '../components/Analytics'
 
@@ -23,6 +24,18 @@ const getDefaultLocale = () => {
   } catch {
     return 'en'
   }
+}
+
+// Generate alternate links for hreflang
+const generateAlternateLinks = () => {
+  const baseUrl = getEnvVar('NEXT_PUBLIC_SITE_URL', 'http://localhost:3000')
+  const locales = ['en', 'es', 'zh', 'fr']
+  
+  return locales.map(locale => ({
+    rel: 'alternate',
+    hreflang: locale,
+    href: `${baseUrl}?lang=${locale}`
+  }))
 }
 
 export const metadata: Metadata = {
@@ -103,6 +116,9 @@ export default function RootLayout({
         <meta name="msapplication-config" content="/browserconfig.xml" />
         <meta name="msapplication-TileColor" content="#3b82f6" />
         <meta name="msapplication-tap-highlight" content="no" />
+        {generateAlternateLinks().map((link, index) => (
+          <link key={index} rel={link.rel} hrefLang={link.hreflang} href={link.href} />
+        ))}
       </head>
       <body className={`${inter.className} antialiased`}>
         <div className="min-h-screen bg-gray-50">
@@ -113,6 +129,15 @@ export default function RootLayout({
     </html>
   )
 }
+
+
+
+
+
+
+
+
+
 
 
 

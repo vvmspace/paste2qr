@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { pageConfigs } from '../configs/pages'
+import { supportedLocales, defaultLocale } from '../lib/locales'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Get environment variables safely
@@ -12,58 +13,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
   
   const baseUrl = getSiteUrl()
+  const sitemap: MetadataRoute.Sitemap = []
   
-  // Static pages from pageConfigs
-  const staticPages = Object.keys(pageConfigs).map((slug) => ({
-    url: `${baseUrl}/${slug === 'home' ? '' : slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: slug === 'home' ? 1.0 : 0.8,
-  }))
-
-  // Additional SEO pages focused on "paste to QR"
-  const seoPages = [
-    {
-      url: `${baseUrl}/wifi-qr-code-generator`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/phone-number-qr-code`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/email-qr-code-generator`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/sms-qr-code-maker`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/contact-info-qr-code`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
+  // Generate localized URLs for each page
+  const pages = [
+    { slug: 'home', path: '' },
+    { slug: 'wifi-qr-code-generator', path: 'wifi-qr-code-generator' },
+    { slug: 'phone-number-qr-code', path: 'phone-number-qr-code' },
+    { slug: 'email-qr-code-generator', path: 'email-qr-code-generator' },
+    { slug: 'sms-qr-code-maker', path: 'sms-qr-code-maker' },
   ]
+  
+  for (const page of pages) {
+    for (const locale of supportedLocales) {
+      const url = locale === defaultLocale 
+        ? `${baseUrl}/${page.path}`.replace(/\/$/, '') || baseUrl
+        : `${baseUrl}/${locale}/${page.path}`.replace(/\/$/, '') || `${baseUrl}/${locale}`
+      
+      sitemap.push({
+        url,
+        lastModified: new Date(),
+        changeFrequency: page.slug === 'home' ? 'daily' : 'weekly',
+        priority: page.slug === 'home' ? 1.0 : 0.8,
+      })
+    }
+  }
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1.0,
-    },
-    ...staticPages,
-    ...seoPages,
-  ]
+  return sitemap
 }
 

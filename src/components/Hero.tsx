@@ -38,13 +38,7 @@ export function Hero({ title }: { title: string }) {
         </h1>
         
             {/* Language Switcher */}
-            <LanguageSwitcher 
-              currentLanguage="en"
-              onLanguageChange={(lang) => {
-                console.log('Language changed to:', lang)
-                // TODO: Implement language change logic
-              }}
-            />
+            <LanguageSwitcher />
       </div>
       
       {/* Navigation Menu */}

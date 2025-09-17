@@ -1,27 +1,47 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { trackEvent } from '../lib/analytics'
 
 interface LanguageSwitcherProps {
   currentLanguage?: string
-  onLanguageChange?: (language: string) => void
 }
 
 const languages = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
-  { code: 'zh', name: '中文', flag: '🇨🇳' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'en', name: 'English', flag: '🇺🇸', hreflang: 'en' },
+  { code: 'es', name: 'Español', flag: '🇪🇸', hreflang: 'es' },
+  { code: 'zh', name: '中文', flag: '🇨🇳', hreflang: 'zh' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷', hreflang: 'fr' },
 ]
 
-export function LanguageSwitcher({ currentLanguage = 'en', onLanguageChange }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ currentLanguage }: LanguageSwitcherProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const currentLang = languages.find(lang => lang.code === currentLanguage) || languages[0]
+  const [currentLocale, setCurrentLocale] = useState('en')
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const pathname = usePathname()
+
+  // Update current locale from URL parameter
+  useEffect(() => {
+    const locale = searchParams.get('lang') || 'en'
+    setCurrentLocale(locale)
+  }, [searchParams])
+
+  const currentLang = languages.find(lang => lang.code === currentLocale) || languages[0]
 
   const handleLanguageSelect = (languageCode: string) => {
     setIsOpen(false)
-    onLanguageChange?.(languageCode)
+    
+    // Create new URL with language parameter
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('lang', languageCode)
+    const newUrl = `${pathname}?${params.toString()}`
+    
+    // Navigate to new URL
+    router.push(newUrl)
+    
+    // Track analytics
     trackEvent('language_changed', { language: languageCode })
     
     // Haptic feedback for mobile
@@ -56,12 +76,12 @@ export function LanguageSwitcher({ currentLanguage = 'en', onLanguageChange }: L
               key={language.code}
               onClick={() => handleLanguageSelect(language.code)}
               className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 active:bg-gray-100 transition-colors first:rounded-t-xl last:rounded-b-xl ${
-                language.code === currentLanguage ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+                language.code === currentLocale ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
               }`}
             >
               <span className="text-lg">{language.flag}</span>
               <span className="font-medium">{language.name}</span>
-              {language.code === currentLanguage && (
+              {language.code === currentLocale && (
                 <svg className="w-4 h-4 ml-auto text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -73,4 +93,3 @@ export function LanguageSwitcher({ currentLanguage = 'en', onLanguageChange }: L
     </div>
   )
 }
-
