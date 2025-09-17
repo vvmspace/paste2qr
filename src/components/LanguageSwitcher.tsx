@@ -17,6 +17,7 @@ const languages = [
   { code: 'zh', name: '中文', flag: '🇨🇳', hreflang: 'zh' },
   { code: 'fr', name: 'Français', flag: '🇫🇷', hreflang: 'fr' },
   { code: 'am', name: 'አማርኛ', flag: '🇪🇹', hreflang: 'am' },
+  { code: 'pt', name: 'Português', flag: '🇵🇹', hreflang: 'pt' },
 ]
 
 export function LanguageSwitcher({ currentLanguage }: LanguageSwitcherProps) {

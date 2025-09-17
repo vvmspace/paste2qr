@@ -13,6 +13,10 @@
         "language": "Langue",
         "switchLanguageAria": "Changer de langue (actuelle : {{language}})"
     },
+    "hero": {
+        "title": "Coller vers Code QR",
+        "subtitle": "Collez n'importe quel texte de votre presse-papier et obtenez un code QR instantanément. Pas de frappe, pas de complexité - collez et générez."
+    },
     "qr": {
         "generating": "Génération du code QR...",
         "enterText": "Saisissez du texte pour générer un QR",
@@ -57,5 +61,8 @@
     "pwa": {
         "promptTitle": "Installer Paste2QR",
         "promptText": "Installez cette application pour générer rapidement des codes QR."
+    },
+    "header": {
+        "title": "Coller vers Code QR"
     }
 }

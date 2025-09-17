@@ -7,6 +7,7 @@ import es from '../locales/es.json'
 import zh from '../locales/zh.json'
 import fr from '../locales/fr.json'
 import am from '../locales/am.json'
+import pt from '../locales/pt.json'
 
 const resources = {
   en: { translation: en },
@@ -14,6 +15,7 @@ const resources = {
   zh: { translation: zh },
   fr: { translation: fr },
   am: { translation: am },
+  pt: { translation: pt },
 }
 
 // Get default locale safely
@@ -38,7 +40,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    supportedLngs: ['en', 'es', 'zh', 'fr', 'am'],
+    supportedLngs: ['en', 'es', 'zh', 'fr', 'am', 'pt'],
     fallbackLng: getDefaultLocale(),
     lng: getDefaultLocale(),
     debug: getNodeEnv(),

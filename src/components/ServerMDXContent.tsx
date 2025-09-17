@@ -6,7 +6,7 @@ interface ServerMDXContentProps {
   mdxSource?: string
 }
 
-// Компоненты для MDX
+// Components for MDX
 const components = {
   h1: ({ children, ...props }: any) => (
     <h1 className="text-3xl font-bold text-gray-900 mb-6" {...props}>
@@ -112,7 +112,8 @@ const components = {
 }
 
 export function ServerMDXContent({ config, mdxSource }: ServerMDXContentProps) {
-  // Если есть MDX контент, рендерим его
+  
+  // If there's MDX content, render it
   if (mdxSource) {
     return (
       <div className="prose prose-gray max-w-none">
@@ -121,7 +122,7 @@ export function ServerMDXContent({ config, mdxSource }: ServerMDXContentProps) {
     )
   }
 
-  // Иначе рендерим контент на основе конфига
+  // Otherwise render content based on config
   return (
     <div className="prose prose-gray max-w-none">
       <h2 className="text-2xl font-bold text-gray-900 mb-4">

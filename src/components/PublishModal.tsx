@@ -185,6 +185,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
               <option value="zh">中文</option>
               <option value="fr">Français</option>
               <option value="am">አማርኛ</option>
+              <option value="pt">Português</option>
             </select>
           </div>
 

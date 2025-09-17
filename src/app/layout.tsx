@@ -30,7 +30,7 @@ const getDefaultLocale = () => {
 // Generate alternate links for hreflang (path-based locales)
 const generateAlternateLinks = () => {
   const baseUrl = getEnvVar('NEXT_PUBLIC_SITE_URL', 'http://localhost:3000')
-  const locales = ['en', 'es', 'zh', 'fr', 'am']
+  const locales = ['en', 'es', 'zh', 'fr', 'am', 'pt']
   
   return locales.map(locale => ({
     rel: 'alternate',

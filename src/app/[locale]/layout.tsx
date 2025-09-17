@@ -62,6 +62,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
         zh: `${siteUrl}/zh`,
         fr: `${siteUrl}/fr`,
         am: `${siteUrl}/am`,
+        pt: `${siteUrl}/pt`,
       }
     },
     openGraph: {
@@ -70,7 +71,8 @@ export async function generateMetadata({ params }: { params: { locale: string } 
               locale === 'es' ? 'es_ES' :
               locale === 'zh' ? 'zh_CN' :
               locale === 'fr' ? 'fr_FR' :
-              locale === 'am' ? 'am_ET' : 'en_US',
+              locale === 'am' ? 'am_ET' :
+              locale === 'pt' ? 'pt_PT' : 'en_US',
       url: `${siteUrl}/${locale}`,
       title: 'QR Code Generator - Create QR Codes Instantly',
       description: 'Generate QR codes instantly from any text. Fast, free, and easy to use QR code generator with publishing options.',

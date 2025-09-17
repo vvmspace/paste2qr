@@ -1,8 +1,54 @@
 import { redirect } from 'next/navigation'
 import { isValidLocale, defaultLocale } from '../../lib/locales'
 import { UniversalPage } from '../../components/UniversalPage'
+import { getLocalizedSEO } from '../../lib/seo'
+import { generateStructuredData } from '../../lib/seo'
+import { getLocalizedMDXContent } from '../../lib/mdxLoader'
 
-export default function LocaleIndexPage({ params }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: { params: { locale: string } }) {
+  const { locale } = params
+  
+  if (!isValidLocale(locale) || locale === defaultLocale) {
+    return {}
+  }
+  
+  const seo = getLocalizedSEO('home', locale)
+  
+  return {
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords,
+    alternates: {
+      canonical: seo.canonicalUrl,
+      languages: seo.alternateUrls
+    },
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      url: seo.canonicalUrl,
+      siteName: 'Paste2QR',
+      locale: locale === 'en' ? 'en_US' : 
+              locale === 'es' ? 'es_ES' :
+              locale === 'zh' ? 'zh_CN' :
+              locale === 'fr' ? 'fr_FR' :
+              locale === 'am' ? 'am_ET' : 'en_US',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seo.title,
+      description: seo.description,
+    },
+    other: {
+      'application-name': 'Paste2QR',
+      'apple-mobile-web-app-title': 'Paste2QR',
+      'msapplication-TileColor': '#3b82f6',
+      'theme-color': '#3b82f6',
+    }
+  }
+}
+
+export default async function LocaleIndexPage({ params }: { params: { locale: string } }) {
 	const { locale } = params
 	if (!isValidLocale(locale)) {
 		return null
@@ -11,17 +57,22 @@ export default function LocaleIndexPage({ params }: { params: { locale: string }
 		redirect('/')
 	}
 	
-	// For non-default locales, show the localized content
-	const config = {
-		title: `Paste to QR Code - ${locale.toUpperCase()}`,
-		description: `Paste any text and get a QR code instantly. The fastest and simplest way to create QR codes from clipboard content. Free and easy to use.`,
-		keywords: 'paste to QR code, paste QR generator, clipboard to QR, instant QR code, text to QR, paste text QR',
-		heroTitle: 'Paste to QR Code',
-		heroSubtitle: 'Paste any text from your clipboard and get a QR code instantly. No typing, no complexity - just paste and generate.',
-		heroButtonText: 'Paste & Generate',
-		heroGradient: 'from-blue-600 to-blue-800',
-		canonicalUrl: `http://localhost:3000/${locale}`
-	}
+	const seo = getLocalizedSEO('home', locale)
+	const structuredData = generateStructuredData('home', locale, seo.canonicalUrl)
+	const mdxSource = await getLocalizedMDXContent('home', locale)
 	
-	return <UniversalPage config={config} />
+	return (
+		<>
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+			/>
+			<UniversalPage config={{
+				title: seo.title,
+				description: seo.description,
+				keywords: seo.keywords,
+				canonicalUrl: seo.canonicalUrl,
+			}} mdxSource={mdxSource || undefined} />
+		</>
+	)
 }

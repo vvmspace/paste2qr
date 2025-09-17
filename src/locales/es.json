@@ -13,6 +13,10 @@
         "language": "Idioma",
         "switchLanguageAria": "Cambiar idioma (actual: {{language}})"
     },
+    "hero": {
+        "title": "Pegar a Código QR",
+        "subtitle": "Pega cualquier texto de tu portapapeles y obtén un código QR al instante. Sin escribir, sin complejidad - solo pega y genera."
+    },
     "qr": {
         "generating": "Generando código QR...",
         "enterText": "Introduce texto para generar QR",
@@ -57,5 +61,8 @@
     "pwa": {
         "promptTitle": "Instalar Paste2QR",
         "promptText": "Instala esta app para acceder rápido a la generación de QR."
+    },
+    "header": {
+        "title": "Pegar a Código QR"
     }
 }

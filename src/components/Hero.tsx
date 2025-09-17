@@ -6,14 +6,7 @@ import { NavigationMenu } from './NavigationMenu'
 import { ThemeToggle } from './ThemeToggle'
 import { useTranslation } from 'react-i18next'
 
-interface HeroProps {
-  title: string
-  subtitle: string
-  buttonText: string
-  gradient: string
-}
-
-export function Hero({ title }: { title: string }) {
+export function Hero() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const headerRef = useRef<HTMLDivElement>(null)
   const touchStartX = useRef<number>(0)
@@ -81,7 +74,7 @@ export function Hero({ title }: { title: string }) {
         
         {/* Title */}
         <h1 className="text-lg font-semibold text-gray-900 dark:text-gray-100 tracking-tight">
-          {title}
+          {t('header.title')}
         </h1>
         
         {/* Right side controls */}

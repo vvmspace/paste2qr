@@ -1,6 +1,6 @@
 // Locale configuration and utilities
 
-export const supportedLocales = ['en', 'es', 'zh', 'fr', 'am'] as const
+export const supportedLocales = ['en', 'es', 'zh', 'fr', 'am', 'pt'] as const
 export type SupportedLocale = typeof supportedLocales[number]
 
 export const defaultLocale: SupportedLocale = 'en'
@@ -15,7 +15,8 @@ export const localeNames = {
   es: 'Español', 
   zh: '中文',
   fr: 'Français',
-  am: 'አማርኛ'
+  am: 'አማርኛ',
+  pt: 'Português'
 } as const
 
 export const localeFlags = {
@@ -23,7 +24,8 @@ export const localeFlags = {
   es: '🇪🇸',
   zh: '🇨🇳', 
   fr: '🇫🇷',
-  am: '🇪🇹'
+  am: '🇪🇹',
+  pt: '🇵🇹'
 } as const
 
 export function getLocaleFromPathname(pathname: string): SupportedLocale {

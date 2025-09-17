@@ -13,6 +13,10 @@
         "language": "ቋንቋ",
         "switchLanguageAria": "ቋንቋ መቀያየር (አሁኑ: {{language}})"
     },
+    "hero": {
+        "title": "መለጠፍ ወደ QR ኮድ",
+        "subtitle": "ከቅንጥብ ሰሌዳዎ ማንኛውንም ጽሑፍ ይለጥፉ እና ወዲያውኑ QR ኮድ ያግኙ። መተየብ የለም፣ ውስብስብነት የለም - ዝም ብለው ይለጥፉ እና ይፍጠሩ።"
+    },
     "qr": {
         "generating": "QR ኮድ እየተፈጠረ ነው...",
         "enterText": "QR ለመፍጠር ጽሑፍ ያስገቡ",
@@ -57,5 +61,8 @@
     "pwa": {
         "promptTitle": "Paste2QR መጫን",
         "promptText": "QR ኮድ ማመንጫ ለፍጥነት የዚህን መተግበሪያ ይጫኑ።"
+    },
+    "header": {
+        "title": "መለጠፍ ወደ QR ኮድ"
     }
 }

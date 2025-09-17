@@ -2,6 +2,7 @@
 
 import { QRGenerator } from './QRGenerator'
 import { Hero } from './Hero'
+import { HeroContent } from './HeroContent'
 import { ServerMDXContent } from './ServerMDXContent'
 import { PageConfig } from '../configs/pages'
 
@@ -13,8 +14,9 @@ interface UniversalPageProps {
 export function UniversalPage({ config, mdxSource }: UniversalPageProps) {
   return (
     <main className="min-h-screen bg-gray-50 pb-24">
-      <Hero title={config.heroTitle} />
+      <Hero />
       <QRGenerator />
+      <HeroContent />
       
       {/* SEO Content - hidden below the fold */}
       <div className="px-6 pb-8">

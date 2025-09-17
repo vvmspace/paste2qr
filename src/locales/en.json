@@ -13,6 +13,10 @@
         "language": "Language",
         "switchLanguageAria": "Switch language (current: {{language}})"
     },
+    "hero": {
+        "title": "Paste to QR Code",
+        "subtitle": "Paste any text from your clipboard and get a QR code instantly. No typing, no complexity - just paste and generate."
+    },
     "qr": {
         "generating": "Generating QR code...",
         "enterText": "Enter text to generate QR",
@@ -57,5 +61,8 @@
     "pwa": {
         "promptTitle": "Install Paste2QR",
         "promptText": "Install this app on your device for quick access to QR code generation."
+    },
+    "header": {
+        "title": "Paste to QR Code"
     }
 }

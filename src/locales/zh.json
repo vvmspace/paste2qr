@@ -13,6 +13,10 @@
         "language": "语言",
         "switchLanguageAria": "切换语言（当前：{{language}}）"
     },
+    "hero": {
+        "title": "粘贴生成二维码",
+        "subtitle": "从剪贴板粘贴任何文本，立即生成二维码。无需输入，无需复杂操作 - 只需粘贴并生成。"
+    },
     "qr": {
         "generating": "正在生成二维码...",
         "enterText": "输入文本以生成二维码",
@@ -57,5 +61,8 @@
     "pwa": {
         "promptTitle": "安装 Paste2QR",
         "promptText": "安装此应用以快速生成二维码。"
+    },
+    "header": {
+        "title": "粘贴生成二维码"
     }
 }

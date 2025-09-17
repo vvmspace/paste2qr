@@ -15,7 +15,8 @@ export async function generateStaticParams() {
     'wifi-qr-code-generator',
     'phone-number-qr-code', 
     'email-qr-code-generator',
-    'sms-qr-code-maker'
+    'sms-qr-code-maker',
+    'contact-info-qr-code'
   ]
   
   const params = []
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: PageProps) {
     notFound()
   }
   
-  const result = await loadPageConfig(slug)
+  const result = await loadPageConfig(slug, locale)
   if (!result) {
     notFound()
   }
@@ -64,7 +65,7 @@ export default async function LocalizedSlugPage({ params }: PageProps) {
     redirect(`/${slug}`)
   }
   
-  const result = await loadPageConfig(slug)
+  const result = await loadPageConfig(slug, locale)
   if (!result) {
     notFound()
   }
