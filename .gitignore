@@ -84,3 +84,6 @@ public/workbox-*.js
 
 # TypeScript
 *.tsbuildinfo
+
+# Temporary
+.cursorrules
