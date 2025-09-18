@@ -11,7 +11,7 @@ export const metadata = {
 }
 
 export default function PhoneNumberQRCodePage() {
-  return <UniversalPage config={pageConfigs['phone-number-qr-code']} />
+  return <UniversalPage config={pageConfigs['phone-number-qr-code']} locale="en" />
 }
 
 

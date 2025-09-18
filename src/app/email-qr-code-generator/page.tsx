@@ -11,7 +11,7 @@ export const metadata = {
 }
 
 export default function EmailQRCodeGeneratorPage() {
-  return <UniversalPage config={pageConfigs['email-qr-code-generator']} />
+  return <UniversalPage config={pageConfigs['email-qr-code-generator']} locale="en" />
 }
 
 

@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       
       sitemap.push({
         url,
-        lastModified: new Date(),
+        lastModified: new Date('2024-01-01'), // Use static date to avoid hydration mismatch
         changeFrequency: page.slug === 'home' ? 'daily' : 'weekly',
         priority: page.slug === 'home' ? 1.0 : 0.8,
       })

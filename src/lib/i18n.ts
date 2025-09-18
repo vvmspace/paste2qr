@@ -38,27 +38,19 @@ const getNodeEnv = () => {
 // Only initialize if not already initialized
 if (!i18n.isInitialized) {
   i18n
-    .use(LanguageDetector)
     .use(initReactI18next)
     .init({
       resources,
       supportedLngs: ['en', 'es', 'zh', 'fr', 'am', 'pt'],
       fallbackLng: getDefaultLocale(),
-      lng: getDefaultLocale(),
+      lng: getDefaultLocale(), // Server always uses default locale
       debug: getNodeEnv(),
-      
-      detection: {
-        order: ['path', 'querystring', 'localStorage', 'navigator', 'htmlTag'],
-        lookupFromPathIndex: 0,
-        lookupQuerystring: 'lang',
-        caches: ['localStorage'],
-      },
       
       interpolation: {
         escapeValue: false,
       },
       
-      // Enable client-side language detection
+      // Disable client-side language detection on server
       react: {
         useSuspense: false,
       },

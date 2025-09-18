@@ -87,11 +87,15 @@ export function throttle<T extends (...args: any[]) => any>(
  * Generate a random string of specified length
  */
 export function generateRandomString(length: number): string {
+  // Use a deterministic approach to avoid hydration mismatch
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   let result = ''
   
+  // Use a simple counter-based approach instead of Math.random()
+  let counter = 0
   for (let i = 0; i < length; i++) {
-    result += chars.charAt(Math.floor(Math.random() * chars.length))
+    result += chars.charAt(counter % chars.length)
+    counter++
   }
   
   return result

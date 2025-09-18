@@ -19,7 +19,7 @@ export async function generateStaticParams() {
     'contact-info-qr-code'
   ]
   
-  const params = []
+  const params: Array<{ locale: string; slug: string }> = []
   for (const locale of supportedLocales) {
     for (const slug of slugs) {
       params.push({ locale, slug })
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: PageProps) {
     alternates: {
       canonical: locale === defaultLocale 
         ? config.canonicalUrl 
-        : config.canonicalUrl.replace('/' + slug, `/${locale}/${slug}`),
+        : config.canonicalUrl?.replace('/' + slug, `/${locale}/${slug}`),
     },
   }
 }

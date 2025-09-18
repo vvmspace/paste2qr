@@ -11,7 +11,7 @@ export const metadata = {
 }
 
 export default function SMSQRCodeMakerPage() {
-  return <UniversalPage config={pageConfigs['sms-qr-code-maker']} />
+  return <UniversalPage config={pageConfigs['sms-qr-code-maker']} locale="en" />
 }
 
 

@@ -79,14 +79,14 @@ describe('QR Generator Integration Tests', () => {
     })
   })
 
-  test('should show publish button when text is not default URL', async () => {
+  test('should show download button when QR code is generated', async () => {
     render(<QRGenerator />)
     
     const textarea = screen.getByPlaceholderText('Paste any text from your clipboard to generate QR code...')
     fireEvent.change(textarea, { target: { value: 'Custom text' } })
     
     await waitFor(() => {
-      expect(screen.getByText('Publish')).toBeInTheDocument()
+      expect(screen.getByText('Download')).toBeInTheDocument()
     })
   })
 
@@ -109,12 +109,7 @@ describe('QR Generator Integration Tests', () => {
     expect(downloadButton).toBeInTheDocument()
   })
 
-  test('should handle share functionality', async () => {
-    // Mock navigator.share
-    Object.assign(navigator, {
-      share: jest.fn().mockResolvedValue(undefined)
-    })
-
+  test('should handle download functionality with custom text', async () => {
     render(<QRGenerator />)
     
     // Enter text to generate QR code
@@ -126,11 +121,11 @@ describe('QR Generator Integration Tests', () => {
       expect(screen.getByAltText('Generated QR Code')).toBeInTheDocument()
     })
     
-    const shareButton = screen.getByText('Share')
-    fireEvent.click(shareButton)
+    const downloadButton = screen.getByText('Download')
+    fireEvent.click(downloadButton)
     
     // Just verify the button exists and is clickable
-    expect(shareButton).toBeInTheDocument()
+    expect(downloadButton).toBeInTheDocument()
   })
 })
 

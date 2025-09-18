@@ -48,6 +48,8 @@ export const pageConfigs: Record<string, PageConfig> = {
     heroButtonText: 'Paste & Generate',
     heroGradient: 'from-blue-600 to-blue-800',
     canonicalUrl: getSiteUrl(),
+    defaultText: 'Hello! This is a sample QR code. Paste your own text to generate a custom QR code.',
+    qrPrefix: '',
   },
   'wifi-qr-code-generator': {
     title: 'Paste WiFi Password to QR Code - Instant WiFi QR Generator',
@@ -58,6 +60,8 @@ export const pageConfigs: Record<string, PageConfig> = {
     heroButtonText: 'Paste WiFi & Generate',
     heroGradient: 'from-green-600 to-green-800',
     canonicalUrl: `${getSiteUrl()}/wifi-qr-code-generator`,
+    defaultText: 'WIFI:T:WPA;S:MyWiFi;P:password123;H:false;;',
+    qrPrefix: 'WIFI:',
   },
   'phone-number-qr-code': {
     title: 'Paste Phone Number to QR Code - Instant Call QR Generator',
@@ -68,6 +72,8 @@ export const pageConfigs: Record<string, PageConfig> = {
     heroButtonText: 'Paste Phone & Generate',
     heroGradient: 'from-purple-600 to-purple-800',
     canonicalUrl: `${getSiteUrl()}/phone-number-qr-code`,
+    defaultText: '+1-555-123-4567',
+    qrPrefix: 'tel:',
   },
   'email-qr-code-generator': {
     title: 'Paste Email to QR Code - Instant Email QR Generator',
@@ -78,6 +84,8 @@ export const pageConfigs: Record<string, PageConfig> = {
     heroButtonText: 'Paste Email & Generate',
     heroGradient: 'from-red-600 to-red-800',
     canonicalUrl: `${getSiteUrl()}/email-qr-code-generator`,
+    defaultText: 'contact@example.com',
+    qrPrefix: 'mailto:',
   },
   'sms-qr-code-maker': {
     title: 'Paste SMS to QR Code - Instant Text QR Generator',
@@ -88,6 +96,8 @@ export const pageConfigs: Record<string, PageConfig> = {
     heroButtonText: 'Paste SMS & Generate',
     heroGradient: 'from-orange-600 to-orange-800',
     canonicalUrl: `${getSiteUrl()}/sms-qr-code-maker`,
+    defaultText: '+1-555-123-4567:Hello! This is a sample SMS message.',
+    qrPrefix: 'sms:',
   },
 }
 

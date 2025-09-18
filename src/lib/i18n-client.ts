@@ -3,7 +3,6 @@
 
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
 
 import en from '../locales/en.json'
 import es from '../locales/es.json'
@@ -38,30 +37,40 @@ const getNodeEnv = () => {
   }
 }
 
+// Get locale from URL pathname
+const getLocaleFromURL = () => {
+  if (typeof window === 'undefined') {
+    return getDefaultLocale()
+  }
+  
+  const pathname = window.location.pathname
+  const segments = pathname.split('/').filter(Boolean)
+  const firstSegment = segments[0]
+  
+  const supportedLocales = ['en', 'es', 'zh', 'fr', 'am', 'pt']
+  if (supportedLocales.includes(firstSegment)) {
+    return firstSegment
+  }
+  
+  return getDefaultLocale()
+}
+
 // Only initialize if not already initialized
 if (!i18n.isInitialized) {
   i18n
-    .use(LanguageDetector)
     .use(initReactI18next)
     .init({
       resources,
       supportedLngs: ['en', 'es', 'zh', 'fr', 'am', 'pt'],
       fallbackLng: getDefaultLocale(),
-      lng: getDefaultLocale(),
+      lng: getLocaleFromURL(), // Use URL-based locale
       debug: getNodeEnv(),
-      
-      detection: {
-        order: ['path', 'querystring', 'localStorage', 'navigator', 'htmlTag'],
-        lookupFromPathIndex: 0,
-        lookupQuerystring: 'lang',
-        caches: ['localStorage'],
-      },
       
       interpolation: {
         escapeValue: false,
       },
       
-      // Enable client-side language detection
+      // Disable client-side language detection
       react: {
         useSuspense: false,
       },

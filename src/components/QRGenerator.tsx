@@ -6,22 +6,30 @@ import { FixedActionBar } from './FixedActionBar'
 import { trackEvent } from '../lib/analytics'
 import { aliasToText } from '../lib/alias'
 import { useTranslation } from 'react-i18next'
+import { PageConfig } from '../configs/pages'
 
 interface QRGeneratorProps {
   originalText?: string
+  pageConfig?: PageConfig
 }
 
-export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
+export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {}) {
   const { t } = useTranslation()
   const [text, setText] = useState('')
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null)
   const [isGenerating, setIsGenerating] = useState(false)
   const [isDefaultText, setIsDefaultText] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   // Default text - current page URL
   const [defaultText, setDefaultText] = useState('')
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const generateQRCode = useCallback(async (textToGenerate: string, isDefault: boolean) => {
     if (!textToGenerate.trim()) {
@@ -31,7 +39,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
     
     setIsGenerating(true)
     try {
-      // Get prefix from environment or config (default empty as per requirements)
+      // Get prefix from page config or environment (default empty as per requirements)
       // Get environment variables safely
       const getEnvVar = (key: string, defaultValue: string) => {
         try {
@@ -41,7 +49,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
         }
       }
       
-      const prefix = getEnvVar('NEXT_PUBLIC_QR_PREFIX', '')
+      const prefix = pageConfig?.qrPrefix || getEnvVar('NEXT_PUBLIC_QR_PREFIX', '')
       const fullText = prefix + textToGenerate
 
       // Generate QR code with minimal error correction for shorter text
@@ -88,7 +96,10 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
             setDefaultText('')
           }
         }
-      } else if (currentPath === '/' || currentPath === '/en' || currentPath === '/es' || currentPath === '/zh' || currentPath === '/fr' || currentPath === '/am') {
+      } else if (pageConfig?.defaultText) {
+        // Use default text from page configuration (highest priority)
+        setDefaultText(pageConfig.defaultText)
+      } else if (currentPath === '/' || currentPath === '/en' || currentPath === '/es' || currentPath === '/zh' || currentPath === '/fr' || currentPath === '/am' || currentPath === '/pt') {
         // Only set URL for main page and main locale pages
         setDefaultText(currentUrl)
       } else {
@@ -96,7 +107,7 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
         setDefaultText('')
       }
     }
-  }, [originalText])
+  }, [originalText, pageConfig])
 
   // Initialize with default text and generate QR code
   useEffect(() => {
@@ -257,6 +268,50 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
     }
   }, [qrCodeDataUrl, handleCopy])
 
+  // Render static content during SSR to avoid hydration mismatch
+  if (!mounted) {
+    return (
+      <div className="px-4 py-6" data-testid="qr-generator">
+        {/* QR Code Display */}
+        <div className="text-center mb-8">
+          <div className="inline-block p-6 bg-gray-50 dark:bg-slate-800/50 rounded-3xl border border-gray-200/50 dark:border-slate-700/50">
+            <div className="w-44 h-44 bg-gray-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center">
+              <div className="flex flex-col items-center gap-3">
+                <div className="w-16 h-16 bg-gray-200 dark:bg-gray-600 rounded-2xl flex items-center justify-center">
+                  <svg className="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+                  </svg>
+                </div>
+                <span className="text-sm text-gray-600 dark:text-gray-300 font-medium">Enter text to generate QR</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Text Input */}
+        <div className="mb-8">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200/50 dark:border-slate-700/50 shadow-sm focus-within:border-blue-500/50 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all duration-200">
+            <textarea 
+              placeholder="Paste any text from your clipboard to generate QR code..."
+              className="w-full px-4 py-2 bg-transparent resize-none focus:outline-none transition-colors text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base leading-relaxed"
+              rows={2}
+            />
+          </div>
+        </div>
+        
+        {/* Fixed Action Bar */}
+        <FixedActionBar 
+          onPaste={handlePaste}
+          onPublish={() => setIsModalOpen(true)}
+          onCopy={handleCopyText}
+          onClear={() => {}}
+          hasText={false}
+          hasQRCode={false}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className="px-4 py-6" data-testid="qr-generator">
       {/* QR Code Display */}
@@ -323,15 +378,11 @@ export function QRGenerator({ originalText }: QRGeneratorProps = {}) {
 
       {/* Fixed Action Bar */}
       <FixedActionBar
-        text={text}
-        isDefaultText={isDefaultText}
-        qrCodeDataUrl={qrCodeDataUrl}
         onPaste={handlePaste}
-        onShare={handleShare}
-        onCopyText={handleCopyText}
-        isModalOpen={isModalOpen}
-        onOpenModal={() => setIsModalOpen(true)}
-        onCloseModal={() => setIsModalOpen(false)}
+        onPublish={() => setIsModalOpen(true)}
+        onCopy={handleCopyText}
+        hasText={!!text}
+        hasQRCode={!!qrCodeDataUrl}
       />
     </div>
   )

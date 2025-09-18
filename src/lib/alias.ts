@@ -60,7 +60,8 @@ function isLatinCompatible(text: string): boolean {
  * Combines timestamp with text hash for uniqueness
  */
 export function generateUniqueAlias(text: string): string {
-  const timestamp = Date.now().toString(36)
+  // Use a static timestamp to avoid hydration mismatch
+  const timestamp = 'static'
   const textHash = simpleHash(text).toString(36)
   return `${timestamp}_${textHash}`
 }

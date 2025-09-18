@@ -76,7 +76,7 @@ export default async function LocaleIndexPage({ params }: { params: { locale: st
 				heroSubtitle: seo.description,
 				heroButtonText: 'Paste & Generate',
 				heroGradient: 'from-blue-600 to-blue-800',
-			}} mdxSource={mdxSource || undefined} />
+			}} mdxSource={mdxSource || undefined} locale={locale} />
 		</>
 	)
 }

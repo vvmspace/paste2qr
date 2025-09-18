@@ -11,7 +11,7 @@ export const metadata = {
 }
 
 export default function WiFiQRGeneratorPage() {
-  return <UniversalPage config={pageConfigs['wifi-qr-code-generator']} />
+  return <UniversalPage config={pageConfigs['wifi-qr-code-generator']} locale="en" />
 }
 
 
