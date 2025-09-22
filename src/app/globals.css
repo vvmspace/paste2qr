@@ -9,6 +9,8 @@ html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Performance optimizations */
+  contain: layout style paint;
 }
 
 body {
@@ -17,6 +19,20 @@ body {
   font-size: 16px;
   line-height: 1.5;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  /* Performance optimizations */
+  contain: layout style paint;
+  will-change: auto;
+}
+
+/* Performance optimizations for key elements */
+.qr-generator-container {
+  contain: layout style paint;
+  min-height: 400px; /* Prevent CLS */
+}
+
+.hero-content {
+  contain: layout style paint;
+  min-height: 200px; /* Prevent CLS */
 }
 
 /* Neutralize default anchor styles site-wide (menu and UI elements) */

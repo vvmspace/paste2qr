@@ -9,6 +9,7 @@
         "share": "Partager",
         "paste": "Coller",
         "copy": "Copier",
+        "clear": "Effacer",
         "publish": "Publier",
         "language": "Langue",
         "switchLanguageAria": "Changer de langue (actuelle : {{language}})"

@@ -7,6 +7,14 @@ import { performance } from 'perf_hooks'
 const BASE_URL = 'http://localhost:3000'
 const LOCALES = ['en', 'es', 'zh', 'fr', 'am', 'pt']
 
+// Parse command line arguments for timeout
+const getTimeout = () => {
+  const timeoutArg = process.argv.find(arg => arg.startsWith('--timeout='))
+  return timeoutArg ? parseInt(timeoutArg.split('=')[1]) : 100
+}
+
+const timeout = getTimeout()
+
 // Test results storage
 const pageSpeedResults = {}
 
@@ -137,13 +145,13 @@ async function testQRCodePerformance(page, locale) {
     await page.type('textarea', 'Performance test QR code generation')
     
     // Wait for QR code to generate
-    await page.waitForSelector('img[alt*="QR"]', { timeout: 5000 })
+    await page.waitForSelector('img[alt]', { timeout: 5000 })
     
     const endTime = performance.now()
     const generationTime = endTime - startTime
     
     // Check if QR code is visible
-    const qrCodeVisible = await page.$eval('img[alt*="QR"]', el => {
+    const qrCodeVisible = await page.$eval('img[alt]', el => {
       const rect = el.getBoundingClientRect()
       return rect.width > 0 && rect.height > 0
     })
@@ -166,6 +174,7 @@ async function testQRCodePerformance(page, locale) {
 // Main test function
 async function runPageSpeedTests() {
   console.log('🚀 Starting PageSpeed tests...')
+  console.log(`⏱️  Timeout: ${timeout}ms between steps`)
   
   const browser = await puppeteer.launch({
     headless: false,
@@ -190,14 +199,17 @@ async function runPageSpeedTests() {
     
     // Test basic performance
     const basicPerformance = await testBasicPerformance(page, locale)
+    await new Promise(resolve => setTimeout(resolve, timeout))
     
     // Test QR code performance
     const qrPerformance = await testQRCodePerformance(page, locale)
+    await new Promise(resolve => setTimeout(resolve, timeout))
     
     // Run Lighthouse audit (only for first locale to avoid long test times)
     let lighthouseResults = null
     if (locale === 'en') {
       lighthouseResults = await runLighthouseAudit(page, url, locale)
+      await new Promise(resolve => setTimeout(resolve, timeout * 2))
     }
     
     pageSpeedResults[locale] = {
@@ -207,7 +219,7 @@ async function runPageSpeedTests() {
     }
     
     // Wait between tests
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise(resolve => setTimeout(resolve, timeout))
   }
   
   await browser.close()

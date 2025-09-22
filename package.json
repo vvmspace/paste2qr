@@ -14,7 +14,11 @@
         "test:coverage": "jest --coverage",
         "test:performance": "node scripts/test-performance.js",
         "test:accessibility": "node scripts/test-accessibility.js",
-        "test:browser": "node scripts/test-browser.js"
+        "test:browser": "node scripts/test-browser.js",
+        "test:comprehensive": "node scripts/test-comprehensive.js",
+        "demo:browser": "node scripts/test-browser.js --timeout=1000",
+        "demo:comprehensive": "node scripts/test-comprehensive.js --timeout=1000",
+        "demo:pagespeed": "node scripts/test-pagespeed.js --timeout=1000"
     },
     "dependencies": {
         "chrome-launcher": "^1.2.0",

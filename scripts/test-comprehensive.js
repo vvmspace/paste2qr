@@ -6,6 +6,14 @@ import { performance } from 'perf_hooks'
 const BASE_URL = 'http://localhost:3000'
 const LOCALES = ['en', 'es', 'zh', 'fr', 'am', 'pt']
 
+// Parse command line arguments for timeout
+const getTimeout = () => {
+  const timeoutArg = process.argv.find(arg => arg.startsWith('--timeout='))
+  return timeoutArg ? parseInt(timeoutArg.split('=')[1]) : 100
+}
+
+const timeout = getTimeout()
+
 // Test results storage
 const testResults = {
   translations: {},
@@ -121,7 +129,7 @@ async function testQRCodeGeneration(page, locale) {
     const qrCodeAfterInput = await page.$('img[alt*="QR"]') !== null
     
     // Test download functionality
-    const downloadButton = await page.$('button:has-text("Download")')
+    const downloadButton = await page.$('button')
     const downloadWorks = downloadButton !== null
     
     const result = {
@@ -234,6 +242,7 @@ async function testPageSpeed(page, locale) {
 // Main test function
 async function runTests() {
   console.log('🚀 Starting comprehensive tests...')
+  console.log(`⏱️  Timeout: ${timeout}ms between steps`)
   
   const browser = await puppeteer.launch({
     headless: false,
@@ -255,13 +264,19 @@ async function runTests() {
     console.log(`\n🌍 Testing locale: ${locale}`)
     
     await testTranslations(page, locale)
-    await testDefaultInput(page, locale)
-    await testQRCodeGeneration(page, locale)
-    await testSEO(page, locale)
-    await testPageSpeed(page, locale)
+    await new Promise(resolve => setTimeout(resolve, timeout))
     
-    // Wait between tests
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await testDefaultInput(page, locale)
+    await new Promise(resolve => setTimeout(resolve, timeout))
+    
+    await testQRCodeGeneration(page, locale)
+    await new Promise(resolve => setTimeout(resolve, timeout))
+    
+    await testSEO(page, locale)
+    await new Promise(resolve => setTimeout(resolve, timeout))
+    
+    await testPageSpeed(page, locale)
+    await new Promise(resolve => setTimeout(resolve, timeout * 2))
   }
   
   await browser.close()

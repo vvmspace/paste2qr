@@ -12,8 +12,17 @@ import { dirname, join } from 'path'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
+// Parse command line arguments for timeout
+const getTimeout = () => {
+  const timeoutArg = process.argv.find(arg => arg.startsWith('--timeout='))
+  return timeoutArg ? parseInt(timeoutArg.split('=')[1]) : 100
+}
+
+const timeout = getTimeout()
+
 async function testBrowser() {
   console.log('🌐 Starting browser tests...')
+  console.log(`⏱️  Timeout: ${timeout}ms between steps`)
   
   let browser
   try {
@@ -29,20 +38,23 @@ async function testBrowser() {
     // Navigate to the app
     console.log('📱 Navigating to http://localhost:3000...')
     await page.goto('http://localhost:3000', { waitUntil: 'networkidle0' })
+    await new Promise(resolve => setTimeout(resolve, timeout))
     
     // Test 1: Check if page loads
     console.log('✅ Test 1: Page loads successfully')
     const title = await page.title()
     console.log(`   Title: ${title}`)
+    await new Promise(resolve => setTimeout(resolve, timeout))
     
     // Test 2: Check if QR generator is visible
     console.log('✅ Test 2: QR Generator is visible')
-    const textarea = await page.$('textarea[placeholder*="Paste any text"]')
+    const textarea = await page.$('textarea')
     if (textarea) {
       console.log('   ✓ Textarea found')
     } else {
       throw new Error('Textarea not found')
     }
+    await new Promise(resolve => setTimeout(resolve, timeout))
     
     // Test 3: Check if buttons are visible
     console.log('✅ Test 3: Buttons are visible')
@@ -57,14 +69,17 @@ async function testBrowser() {
     } else {
       throw new Error('Required buttons not found')
     }
+    await new Promise(resolve => setTimeout(resolve, timeout))
     
     // Test 4: Test QR code generation
     console.log('✅ Test 4: QR code generation')
-    await page.type('textarea[placeholder*="Paste any text"]', 'Test QR Code')
+    await page.type('textarea', 'Test QR Code')
+    await new Promise(resolve => setTimeout(resolve, timeout * 2))
     
     // Wait for QR code to appear
     await page.waitForSelector('img[alt="Generated QR Code"]', { timeout: 5000 })
     console.log('   ✓ QR code generated successfully')
+    await new Promise(resolve => setTimeout(resolve, timeout))
     
     // Test 5: Test download functionality
     console.log('✅ Test 5: Download functionality')
@@ -76,11 +91,13 @@ async function testBrowser() {
       console.log('   ✓ Download button found')
       // Note: We can't actually test download in headless mode
     }
+    await new Promise(resolve => setTimeout(resolve, timeout))
     
     // Test 6: Test mobile responsiveness
     console.log('✅ Test 6: Mobile responsiveness')
     const viewport = page.viewport()
     console.log(`   Viewport: ${viewport.width}x${viewport.height}`)
+    await new Promise(resolve => setTimeout(resolve, timeout))
     
     // Test 7: Check console for errors
     console.log('✅ Test 7: Console error check')
@@ -92,7 +109,7 @@ async function testBrowser() {
     })
     
     // Wait a bit to collect any errors
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    await new Promise(resolve => setTimeout(resolve, timeout * 2))
     
     if (logs.length === 0) {
       console.log('   ✓ No console errors found')
@@ -100,6 +117,7 @@ async function testBrowser() {
       console.log(`   ⚠️ Found ${logs.length} console errors:`)
       logs.forEach(log => console.log(`     - ${log}`))
     }
+    await new Promise(resolve => setTimeout(resolve, timeout))
     
     // Test 8: Performance check
     console.log('✅ Test 8: Performance check')

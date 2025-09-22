@@ -62,7 +62,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
           dark: '#000000',
           light: '#FFFFFF'
         },
-        width: 288 // Crisper QR for larger mobile display
+        width: 256 // Optimized size for better performance
       })
 
       setQrCodeDataUrl(dataUrl)
@@ -121,8 +121,13 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
   useEffect(() => {
     if (text.trim()) {
       const timeoutId = setTimeout(() => {
-        generateQRCode(text, isDefaultText)
-      }, 500) // 500ms debounce
+        // Use requestIdleCallback for better performance
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => generateQRCode(text, isDefaultText))
+        } else {
+          generateQRCode(text, isDefaultText)
+        }
+      }, 200) // 200ms debounce as per requirements
       
       return () => clearTimeout(timeoutId)
     }
@@ -268,14 +273,31 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
     }
   }, [qrCodeDataUrl, handleCopy])
 
+  const handleClear = useCallback(() => {
+    // Haptic feedback
+    if ('vibrate' in navigator) {
+      navigator.vibrate(30)
+    }
+    
+    setText('')
+    setQrCodeDataUrl(null)
+    setIsDefaultText(false)
+    trackEvent('text_cleared')
+    
+    // Focus on textarea after clear
+    if (textareaRef.current) {
+      textareaRef.current.focus()
+    }
+  }, [])
+
   // Render static content during SSR to avoid hydration mismatch
   if (!mounted) {
     return (
-      <div className="px-4 py-6" data-testid="qr-generator">
+      <div className="px-4 py-6 qr-generator-container" data-testid="qr-generator" style={{ contain: 'layout style paint' }}>
         {/* QR Code Display */}
         <div className="text-center mb-8">
           <div className="inline-block p-6 bg-gray-50 dark:bg-slate-800/50 rounded-3xl border border-gray-200/50 dark:border-slate-700/50">
-            <div className="w-44 h-44 bg-gray-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center">
+            <div className="w-64 h-64 bg-gray-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center">
               <div className="flex flex-col items-center gap-3">
                 <div className="w-16 h-16 bg-gray-200 dark:bg-gray-600 rounded-2xl flex items-center justify-center">
                   <svg className="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
@@ -295,6 +317,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
               placeholder="Paste any text from your clipboard to generate QR code..."
               className="w-full px-4 py-2 bg-transparent resize-none focus:outline-none transition-colors text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base leading-relaxed"
               rows={2}
+              readOnly
             />
           </div>
         </div>
@@ -304,7 +327,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
           onPaste={handlePaste}
           onPublish={() => setIsModalOpen(true)}
           onCopy={handleCopyText}
-          onClear={() => {}}
+          onClear={handleClear}
           hasText={false}
           hasQRCode={false}
         />
@@ -313,7 +336,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
   }
 
   return (
-    <div className="px-4 py-6" data-testid="qr-generator">
+    <div className="px-4 py-6 qr-generator-container" data-testid="qr-generator" style={{ contain: 'layout style paint' }}>
       {/* QR Code Display */}
       <div className="text-center mb-8">
         {qrCodeDataUrl ? (
@@ -322,7 +345,8 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
               <img
                 src={qrCodeDataUrl}
                 alt={t('qr.alt')}
-                className="w-72 h-72 mx-auto md:w-56 md:h-56"
+                className="w-64 h-64 mx-auto md:w-56 md:h-56"
+                style={{ contain: 'layout style paint' }}
               />
             </div>
             <button
@@ -337,7 +361,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
           </div>
         ) : (
           <div className="inline-block p-6 bg-gray-50 dark:bg-slate-800/50 rounded-3xl border border-gray-200/50 dark:border-slate-700/50">
-            <div className="w-44 h-44 bg-gray-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center">
+            <div className="w-64 h-64 bg-gray-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center">
               {isGenerating ? (
                 <div className="flex flex-col items-center gap-3">
                   <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
@@ -381,6 +405,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
         onPaste={handlePaste}
         onPublish={() => setIsModalOpen(true)}
         onCopy={handleCopyText}
+        onClear={handleClear}
         hasText={!!text}
         hasQRCode={!!qrCodeDataUrl}
       />

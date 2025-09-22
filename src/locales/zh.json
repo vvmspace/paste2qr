@@ -9,6 +9,7 @@
         "share": "分享",
         "paste": "粘贴",
         "copy": "复制",
+        "clear": "清除",
         "publish": "发布",
         "language": "语言",
         "switchLanguageAria": "切换语言（当前：{{language}}）"

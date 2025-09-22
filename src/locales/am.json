@@ -9,6 +9,7 @@
         "share": "መጋራት",
         "paste": "መለጠፍ",
         "copy": "መቅዳት",
+        "clear": "መጸዳት",
         "publish": "መታተም",
         "language": "ቋንቋ",
         "switchLanguageAria": "ቋንቋ መቀያየር (አሁኑ: {{language}})"

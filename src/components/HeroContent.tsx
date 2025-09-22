@@ -15,7 +15,7 @@ export function HeroContent() {
   // Render static content during SSR to avoid hydration mismatch
   if (!mounted) {
     return (
-      <div className="px-6 py-8 text-center">
+      <div className="px-6 py-8 text-center hero-content" style={{ contain: 'layout style paint' }}>
         <div className="max-w-2xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             Paste to QR Code
@@ -29,7 +29,7 @@ export function HeroContent() {
   }
 
   return (
-    <div className="px-6 py-8 text-center">
+    <div className="px-6 py-8 text-center hero-content" style={{ contain: 'layout style paint' }}>
       <div className="max-w-2xl mx-auto">
         {/* Hero Title */}
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">

@@ -315,6 +315,7 @@
     "common": {
         "paste": "Colar",
         "copy": "Copiar",
+        "clear": "Limpar",
         "share": "Compartilhar",
         "download": "Baixar",
         "install": "Instalar",
