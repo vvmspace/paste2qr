@@ -16,9 +16,15 @@
         "test:accessibility": "node scripts/test-accessibility.js",
         "test:browser": "node scripts/test-browser.js",
         "test:comprehensive": "node scripts/test-comprehensive.js",
+        "test:layout": "node scripts/test-layout.js",
+        "test:qr-editing": "node scripts/test-qr-editing.js",
+        "test:action-buttons": "node scripts/test-action-buttons.js",
         "demo:browser": "node scripts/test-browser.js --timeout=1000",
         "demo:comprehensive": "node scripts/test-comprehensive.js --timeout=1000",
-        "demo:pagespeed": "node scripts/test-pagespeed.js --timeout=1000"
+        "demo:pagespeed": "node scripts/test-pagespeed.js --timeout=1000",
+        "demo:layout": "node scripts/test-layout.js --timeout=1000",
+        "demo:qr-editing": "node scripts/test-qr-editing.js --timeout=1000",
+        "demo:action-buttons": "node scripts/test-action-buttons.js --timeout=1000"
     },
     "dependencies": {
         "chrome-launcher": "^1.2.0",

@@ -15,7 +15,7 @@ export function ServerUniversalPage({ config, mdxSource, originalText, locale }:
   return (
     <main className="min-h-screen bg-gray-50 pb-24">
       <Navigation locale={locale} />
-      <div className="pt-16">
+      <div className="pt-20">
         <QRGenerator originalText={originalText} />
         
         {/* SEO Content - hidden below the fold */}

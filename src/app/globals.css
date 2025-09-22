@@ -10,7 +10,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* Performance optimizations */
-  contain: layout style paint;
+  /* contain: layout style paint; - removed to fix position: fixed */
 }
 
 body {
@@ -20,18 +20,18 @@ body {
   line-height: 1.5;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
   /* Performance optimizations */
-  contain: layout style paint;
+  /* contain: layout style paint; - removed to fix position: fixed */
   will-change: auto;
 }
 
 /* Performance optimizations for key elements */
 .qr-generator-container {
-  contain: layout style paint;
+  /* contain: layout style paint; - removed to fix position: fixed */
   min-height: 400px; /* Prevent CLS */
 }
 
 .hero-content {
-  contain: layout style paint;
+  /* contain: layout style paint; - removed to fix position: fixed */
   min-height: 200px; /* Prevent CLS */
 }
 
@@ -136,6 +136,7 @@ select {
 .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
 .pb-8 { padding-bottom: 2rem; }
 .pb-24 { padding-bottom: 6rem; }
+.pt-20 { padding-top: 5rem; }
 .mb-4 { margin-bottom: 1rem; }
 .mb-6 { margin-bottom: 1.5rem; }
 .mb-8 { margin-bottom: 2rem; }

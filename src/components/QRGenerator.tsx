@@ -21,6 +21,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
   const [isDefaultText, setIsDefaultText] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [hasUserInteracted, setHasUserInteracted] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   // Default text - current page URL
@@ -32,10 +33,8 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
   }, [])
 
   const generateQRCode = useCallback(async (textToGenerate: string, isDefault: boolean) => {
-    if (!textToGenerate.trim()) {
-      setQrCodeDataUrl(null)
-      return
-    }
+    // If text is empty, generate QR code for default URL
+    const textForQR = textToGenerate.trim() || 'https://paste2qr.com/'
     
     setIsGenerating(true)
     try {
@@ -49,8 +48,8 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
         }
       }
       
-      const prefix = pageConfig?.qrPrefix || getEnvVar('NEXT_PUBLIC_QR_PREFIX', '')
-      const fullText = prefix + textToGenerate
+        const prefix = pageConfig?.qrPrefix || getEnvVar('NEXT_PUBLIC_QR_PREFIX', '')
+        const fullText = prefix + textForQR
 
       // Generate QR code with minimal error correction for shorter text
       const errorCorrectionLevel = fullText.length < 50 ? 'L' : fullText.length < 100 ? 'M' : 'Q'
@@ -66,7 +65,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
       })
 
       setQrCodeDataUrl(dataUrl)
-      trackEvent('qr_generated', { textLength: textToGenerate.length, isDefault: isDefault, hasPrefix: !!prefix })
+        trackEvent('qr_generated', { textLength: textForQR.length, isDefault: isDefault, hasPrefix: !!prefix })
     } catch (error) {
       console.error('Error generating QR code:', error)
       trackEvent('qr_generation_error', { error: error instanceof Error ? error.message : 'Unknown error' })
@@ -119,18 +118,16 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
 
   // Auto-generate QR code when text changes (with debounce)
   useEffect(() => {
-    if (text.trim()) {
-      const timeoutId = setTimeout(() => {
-        // Use requestIdleCallback for better performance
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(() => generateQRCode(text, isDefaultText))
-        } else {
-          generateQRCode(text, isDefaultText)
-        }
-      }, 200) // 200ms debounce as per requirements
-      
-      return () => clearTimeout(timeoutId)
-    }
+    const timeoutId = setTimeout(() => {
+      // Use requestIdleCallback for better performance
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => generateQRCode(text, isDefaultText))
+      } else {
+        generateQRCode(text, isDefaultText)
+      }
+    }, 200) // 200ms debounce as per requirements
+    
+    return () => clearTimeout(timeoutId)
   }, [text, isDefaultText, generateQRCode])
 
   const handlePaste = useCallback(async () => {
@@ -146,6 +143,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
           const pastedText = await navigator.clipboard.readText()
           setText(pastedText)
           setIsDefaultText(pastedText === defaultText)
+          setHasUserInteracted(true)
           trackEvent('text_pasted', { textLength: pastedText.length })
           
           // Focus on textarea after paste
@@ -282,6 +280,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
     setText('')
     setQrCodeDataUrl(null)
     setIsDefaultText(false)
+    setHasUserInteracted(false)
     trackEvent('text_cleared')
     
     // Focus on textarea after clear
@@ -293,9 +292,9 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
   // Render static content during SSR to avoid hydration mismatch
   if (!mounted) {
     return (
-      <div className="px-4 py-6 qr-generator-container" data-testid="qr-generator" style={{ contain: 'layout style paint' }}>
+      <div className="px-4 py-6 qr-generator-container" data-testid="qr-generator">
         {/* QR Code Display */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 mt-8">
           <div className="inline-block p-6 bg-gray-50 dark:bg-slate-800/50 rounded-3xl border border-gray-200/50 dark:border-slate-700/50">
             <div className="w-64 h-64 bg-gray-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center">
               <div className="flex flex-col items-center gap-3">
@@ -328,17 +327,19 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
           onPublish={() => setIsModalOpen(true)}
           onCopy={handleCopyText}
           onClear={handleClear}
+          onShare={handleShare}
           hasText={false}
           hasQRCode={false}
+          hasUserInteracted={false}
         />
       </div>
     )
   }
 
   return (
-    <div className="px-4 py-6 qr-generator-container" data-testid="qr-generator" style={{ contain: 'layout style paint' }}>
+    <div className="px-4 py-6 qr-generator-container" data-testid="qr-generator">
       {/* QR Code Display */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-8 mt-8">
         {qrCodeDataUrl ? (
           <div className="inline-block p-6 bg-white dark:bg-slate-800 rounded-3xl shadow-lg border border-gray-200/50 dark:border-slate-700/50 max-w-sm w-full">
             <div className="bg-white dark:bg-slate-700 p-4 rounded-2xl mb-4">
@@ -392,6 +393,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
               const newValue = e.target.value
               setText(newValue)
               setIsDefaultText(newValue === defaultText)
+              setHasUserInteracted(newValue.length > 0)
             }}
             placeholder={t('qr.placeholder')}
             className="w-full px-4 py-2 bg-transparent resize-none focus:outline-none transition-colors text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 text-base leading-relaxed"
@@ -406,8 +408,10 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
         onPublish={() => setIsModalOpen(true)}
         onCopy={handleCopyText}
         onClear={handleClear}
+        onShare={handleShare}
         hasText={!!text}
         hasQRCode={!!qrCodeDataUrl}
+        hasUserInteracted={hasUserInteracted}
       />
     </div>
   )

@@ -13,6 +13,12 @@ npm run test:comprehensive
 
 # Performance test
 npm run test:pagespeed
+
+# Layout test (fixed sidebars, QR spacing)
+npm run test:layout
+
+# QR code editing test
+npm run test:qr-editing
 ```
 
 ### Demo Testing (Slow - for presentations)
@@ -26,6 +32,12 @@ npm run demo:comprehensive
 
 # Performance demo (1s between steps)
 npm run demo:pagespeed
+
+# Layout demo (1s between steps)
+npm run demo:layout
+
+# QR editing demo (1s between steps)
+npm run demo:qr-editing
 ```
 
 ## Custom Timeout
@@ -37,6 +49,8 @@ You can also set custom timeout values:
 node scripts/test-browser.js --timeout=2000
 node scripts/test-comprehensive.js --timeout=2000
 node scripts/test-pagespeed.js --timeout=2000
+node scripts/test-layout.js --timeout=2000
+node scripts/test-qr-editing.js --timeout=2000
 ```
 
 ## Test Types
@@ -65,6 +79,25 @@ node scripts/test-pagespeed.js --timeout=2000
 -   Basic performance metrics
 -   QR code generation performance
 -   Lighthouse audit (Performance, SEO, Accessibility, Best Practices)
+
+### 4. Layout Test (`test-layout.js`)
+
+-   CSS filter and positioning issues detection
+-   Header positioning and scroll behavior (fixed vs broken)
+-   Action bar positioning and scroll behavior (fixed vs broken)
+-   Sidebar behavior (slide-out menu, not fixed)
+-   QR code spacing verification
+-   Responsive layout testing (mobile/desktop)
+-   Share button functionality
+
+### 5. QR Editing Test (`test-qr-editing.js`)
+
+-   Initial text input and QR generation
+-   Text editing and QR code updates
+-   Clear and retype functionality
+-   Debounce behavior during rapid typing
+-   Action bar buttons during editing
+-   Clear button functionality
 
 ## Timeout Behavior
 

@@ -10,6 +10,7 @@
 -   [ ] Debouncing support for optimization (200ms)
 -   [ ] Minimal QR code grain count depending on text length
 -   [ ] Optional prefix for QR code (empty by default), passed as parameter in Universal Page, pulled from content configs, not displayed to user, but considered during QR code generation
+-   [ ] There should be spacing before QR code
 
 ### **Interactive Elements**
 
@@ -17,13 +18,14 @@
 -   [ ] "Download" button to download QR code as PNG
 -   [ ] "Clear" button to clear input field
 -   [ ] "Publish" button to publish QR code
+-   [ ] "Share" button to send QR code via link
 
 ## 🌍 **Multilingual Support**
 
 ### **General Functionality**
 
 -   [ ] Common component after header on all pages: visually like a switcher, actually - navigation between locales, render on server, should not create hydration problems. If i18n adds problems, then we don't need it.
--   default locale - from env or default (en) - such URLs can be without locale, may require double routing
+-   [ ] default locale - from env or default (en) - such URLs can be without locale, may require double routing
 
 ### **Supported Languages**
 
@@ -132,6 +134,7 @@
 -   [ ] Puppeteer for frontend testing
 -   [ ] Lighthouse tests
 -   [ ] Hydration tests
+-   [ ] Layout testing: top and bottom sidebars should be fixed, there should be spacing before QR code
 -   [ ] Each test outputs steps to console
 -   [ ] Tests are picked up by `*.spec.*` extension
 

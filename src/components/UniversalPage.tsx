@@ -14,9 +14,9 @@ interface UniversalPageProps {
 
 export function UniversalPage({ config, mdxSource, locale }: UniversalPageProps) {
   return (
-    <main className="min-h-screen bg-gray-50 pb-24" style={{ contain: 'layout style paint' }}>
+    <main className="min-h-screen bg-gray-50 pb-24">
       <Navigation locale={locale} />
-      <div className="pt-16">
+      <div className="pt-20">
         <QRGenerator pageConfig={config} />
         <HeroContent />
         
