@@ -1,5 +1,7 @@
 # 📋 paste2qr Application Requirements
 
+**🔗 [Paste Text to QR Code](https://paste2qr.com) - Paste any text and get QR code instantly - no registration required**
+
 ## 🎯 **Core Functionality**
 
 ### **QR Generator**

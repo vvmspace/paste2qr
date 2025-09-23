@@ -1,5 +1,7 @@
 # 🧪 Testing Guide
 
+**🔗 [Free QR Code Generator](https://paste2qr.com) - Paste text and get QR code instantly - completely free**
+
 ## Quick Testing Commands
 
 ### Development Testing (Fast)
@@ -125,4 +127,7 @@ If tests fail:
 1. Ensure the application is running: `npm start`
 2. Check port 3000 is available
 3. Verify Chrome/Chromium is installed
-4. Check browser console for errors
+
+---
+
+**🔗 [Paste2QR.com](https://paste2qr.com) - Try it now: paste text and get QR code instantly** 4. Check browser console for errors

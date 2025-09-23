@@ -4,6 +4,13 @@
 
 The Paste2QR application has been successfully converted to a Progressive Web App (PWA) with full installation capabilities.
 
+**🔗 [QR Code Generator Online](https://paste2qr.com) - Paste any text and get QR code instantly**
+
+**🔗 [Generador QR Online](https://paste2qr.com) - Pega cualquier texto y obtén código QR al instante**  
+**🔗 [Générateur QR en Ligne](https://paste2qr.com) - Collez n'importe quel texte et obtenez un code QR instantanément**  
+**🔗 [在线二维码生成器](https://paste2qr.com) - 粘贴任何文本立即生成二维码**  
+**🔗 [QR ኮድ ጀነሬተር](https://paste2qr.com) - ማንኛውንም ጽሑፍ ያስገቡ እና QR ኮድ ያግኙ**
+
 ## 🎯 PWA Features Implemented
 
 ### 1. **Service Worker** ✅

@@ -1,6 +1,29 @@
 # Paste2QR - SEO Optimized QR Code Generator
 
+[🇺🇸 English](README_EN.md) | [🇫🇷 Français](README_FR.md) | [🇪🇸 Español](README_ES.md) | [🇪🇹 አማርኛ](README_AM.md) | [🇨🇳 中文](README_ZH.md)
+
 A modern, SEO-optimized QR code generator built with Next.js, TypeScript, and Tailwind CSS. Generate QR codes instantly from any text with advanced publishing options and comprehensive SEO features.
+
+**🔗 [Paste to QR Code Generator](https://paste2qr.com) - Quickly paste text and get QR code instantly**
+
+**🔗 [Générateur de Code QR](https://paste2qr.com) - Collez du texte et obtenez un code QR instantanément**  
+**🔗 [Generador de Código QR](https://paste2qr.com) - Pega texto y obtén código QR al instante**  
+**🔗 [二维码生成器](https://paste2qr.com) - 快速粘贴文本生成二维码**  
+**🔗 [QR ኮድ ጀነሬተር](https://paste2qr.com) - ጽሑፍ ያስገቡ እና QR ኮድ ያግኙ**
+
+## 💬 What People Say About QR Codes
+
+> "QR codes have become an integral part of marketing campaigns, allowing brands to easily connect offline and online worlds."  
+> — _Marketing Professional_ on r/marketing
+
+> "Today QR codes are used everywhere: from restaurant menus to event tickets, simplifying access to information and services."  
+> — _Tech Enthusiast_ on r/technology
+
+> "Artists and designers integrate QR codes into their work, creating interactive artworks that come alive when scanned."  
+> — _Digital Artist_ on r/art
+
+> "Educational institutions implement QR codes to provide students with quick access to learning materials and schedules."  
+> — _Educator_ on r/education
 
 ## 🚀 Features
 
@@ -230,6 +253,10 @@ For support and questions:
 -   Create an issue on GitHub
 -   Check the documentation
 -   Review the code examples
+
+---
+
+**🔗 [Paste2QR.com](https://paste2qr.com) - Paste text, get QR code instantly - no registration required**
 
 ---
 

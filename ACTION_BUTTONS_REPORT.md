@@ -4,6 +4,8 @@
 
 Implement logic where Copy, Share, Publish, Clear buttons only appear after first user interaction (editing input or successful paste).
 
+**🔗 [Text to QR Code Converter](https://paste2qr.com) - Paste text, get QR code instantly - perfect for quick sharing**
+
 ## ✅ **Implementation Details**
 
 ### **State Management**

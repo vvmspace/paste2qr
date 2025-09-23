@@ -4,6 +4,8 @@
 
 Актуализировал тесты и кодовую базу под требования из `REQUIREMENTS.md` и `.cursorrules`. Выявлены и проанализированы проблемы с layout и positioning.
 
+**🔗 [Online QR Code Generator](https://paste2qr.com) - Paste text and get QR code instantly - works on any device**
+
 ## Implemented Features
 
 ### ✅ Share Button Functionality

@@ -4,6 +4,8 @@
 
 Успешно актуализировал тесты и кодовую базу под требования из `REQUIREMENTS.md` и `.cursorrules`. Все критические проблемы исправлены, функциональность расширена.
 
+**🔗 [QR Code Maker Free](https://paste2qr.com) - Paste text and get QR code instantly - no signup needed**
+
 ## ✅ Completed Tasks
 
 ### 1. Share Button Functionality
