@@ -156,8 +156,9 @@ export function NavigationMenu({ isOpen, onClose }: NavigationMenuProps) {
       />
       
       {/* Menu */}
-      <div ref={menuRef} className="fixed top-0 left-0 h-full w-80 bg-white dark:bg-slate-900 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out rounded-r-3xl border-r border-gray-200/50 dark:border-slate-800/50" role="dialog" aria-modal="true" aria-label={t('nav.ariaMainMenu')}>
-        <div className="p-6 pt-6">
+      <div ref={menuRef} className="fixed top-0 left-0 h-full w-80 bg-white dark:bg-slate-900 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out rounded-r-3xl border-r border-gray-200/50 dark:border-slate-800/50 flex flex-col" role="dialog" aria-modal="true" aria-label={t('nav.ariaMainMenu')}>
+        {/* Header - Fixed */}
+        <div className="p-6 pt-6 flex-shrink-0">
           {/* Close button */}
           <div className="flex items-center justify-end mb-4">
             <button
@@ -170,9 +171,12 @@ export function NavigationMenu({ isOpen, onClose }: NavigationMenuProps) {
               </svg>
             </button>
           </div>
+        </div>
 
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto scrollbar-hide px-6">
           {/* Navigation Items */}
-          <nav className="space-y-1" aria-label="Primary">
+          <nav className="space-y-1 pb-6" aria-label="Primary">
             {navigationItems.map((item) => {
               const localizedHref = getLocalizedPathname(item.href, currentLocale)
               return (
@@ -189,16 +193,16 @@ export function NavigationMenu({ isOpen, onClose }: NavigationMenuProps) {
               </Link>
             )})}
           </nav>
+        </div>
 
-          {/* Footer */}
-          <div className="mt-12 pt-6 border-t border-gray-200/50 dark:border-slate-700/50">
-            <p className="text-sm text-gray-500 dark:text-gray-400 text-center font-medium">
-              {t('nav.footerTitle')}
-            </p>
-            <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-1">
-              {t('nav.footerSubtitle')}
-            </p>
-          </div>
+        {/* Footer - Fixed */}
+        <div className="p-6 pt-0 flex-shrink-0 border-t border-gray-200/50 dark:border-slate-700/50">
+          <p className="text-sm text-gray-500 dark:text-gray-400 text-center font-medium">
+            {t('nav.footerTitle')}
+          </p>
+          <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-1">
+            {t('nav.footerSubtitle')}
+          </p>
         </div>
       </div>
     </>

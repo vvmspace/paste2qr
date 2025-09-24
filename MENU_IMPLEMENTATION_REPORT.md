@@ -110,10 +110,11 @@ The menu now includes 8 navigation items:
 
 ### Code Changes
 
-1. **NavigationMenu.tsx**: Added new menu items with icons and translations
+1. **NavigationMenu.tsx**: Added new menu items with icons and translations, implemented scrollable layout
 2. **Localization files**: Updated all 6 language files with new translations
 3. **Routing**: Existing routing system handles new pages automatically
 4. **Styling**: Consistent with existing menu item design
+5. **globals.css**: Added scrollbar-hide utility class for clean scrolling experience
 
 ### Key Features
 
@@ -122,6 +123,8 @@ The menu now includes 8 navigation items:
 -   **Hover Effects**: Smooth transitions and visual feedback
 -   **Accessibility**: Proper ARIA labels and keyboard navigation
 -   **Mobile Responsive**: Works on all device sizes
+-   **Scrollable Content**: Menu content scrolls smoothly with hidden scrollbar
+-   **Fixed Layout**: Header and footer remain fixed while content scrolls
 
 ## User Experience Improvements
 
