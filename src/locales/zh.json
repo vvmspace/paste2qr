@@ -55,6 +55,8 @@
         "email": "邮件二维码",
         "sms": "短信二维码",
         "contact": "联系人二维码",
+        "facts": "二维码事实",
+        "useCases": "二维码用例",
         "footerTitle": "二维码生成器",
         "footerSubtitle": "立即创建二维码",
         "ariaMainMenu": "主菜单",

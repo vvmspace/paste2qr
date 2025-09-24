@@ -26,7 +26,15 @@
         "demo:qr-editing": "node scripts/test-qr-editing.js --timeout=1000",
         "demo:action-buttons": "node scripts/test-action-buttons.js --timeout=1000",
         "test:contact-qr": "node scripts/test-contact-qr-page.js",
-        "demo:contact-qr": "node scripts/test-contact-qr-page.js --timeout=1000"
+        "demo:contact-qr": "node scripts/test-contact-qr-page.js --timeout=1000",
+        "test:content-pages": "node scripts/test-content-pages.js",
+        "test:content-seo": "node scripts/test-content-seo.js",
+        "test:content-performance": "node scripts/test-content-performance.js",
+        "test:navigation-menu": "node scripts/test-navigation-menu.js",
+        "demo:content-pages": "node scripts/test-content-pages.js --timeout=1000",
+        "demo:content-seo": "node scripts/test-content-seo.js --timeout=1000",
+        "demo:content-performance": "node scripts/test-content-performance.js --timeout=1000",
+        "demo:navigation-menu": "node scripts/test-navigation-menu.js --timeout=1000"
     },
     "dependencies": {
         "chrome-launcher": "^1.2.0",

@@ -2,6 +2,20 @@
     "header": {
         "title": "Colar para Código QR"
     },
+    "nav": {
+        "home": "Início",
+        "wifi": "Gerador QR WiFi",
+        "phone": "Código QR telefone",
+        "email": "Código QR e-mail",
+        "sms": "Criador QR SMS",
+        "contact": "Código QR contato",
+        "facts": "Fatos sobre Códigos QR",
+        "useCases": "Casos de Uso de QR",
+        "footerTitle": "Gerador de códigos QR",
+        "footerSubtitle": "Crie códigos QR instantaneamente",
+        "ariaMainMenu": "Menu principal",
+        "ariaCloseMenu": "Fechar menu"
+    },
     "hero": {
         "title": "Colar para Código QR",
         "subtitle": "Cole qualquer texto da sua área de transferência e obtenha um código QR instantaneamente. Sem digitação, sem complexidade - apenas cole e gere."

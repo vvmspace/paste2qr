@@ -16,7 +16,9 @@ export async function generateStaticParams() {
     'phone-number-qr-code', 
     'email-qr-code-generator',
     'sms-qr-code-maker',
-    'contact-info-qr-code'
+    'contact-info-qr-code',
+    'qr-code-facts',
+    'qr-code-use-cases'
   ]
   
   const params: Array<{ locale: string; slug: string }> = []

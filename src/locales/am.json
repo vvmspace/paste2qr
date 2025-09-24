@@ -54,6 +54,8 @@
         "email": "ኢሜይል QR ኮድ",
         "sms": "SMS QR አስመጣች",
         "contact": "የእውቂያ QR ኮድ",
+        "facts": "የQR ኮድ እውነታዎች",
+        "useCases": "የQR ኮድ አጠቃቀም",
         "footerTitle": "QR ኮድ ማመንጫ",
         "footerSubtitle": "QR ኮዶችን ወዲያውኑ ይፍጠሩ",
         "ariaMainMenu": "ዋና ሜኑ",

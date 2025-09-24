@@ -55,6 +55,8 @@
         "email": "Código QR de email",
         "sms": "Creador de QR SMS",
         "contact": "Código QR de contacto",
+        "facts": "Datos de Códigos QR",
+        "useCases": "Casos de Uso de QR",
         "footerTitle": "Generador de códigos QR",
         "footerSubtitle": "Crea códigos QR al instante",
         "ariaMainMenu": "Menú principal",

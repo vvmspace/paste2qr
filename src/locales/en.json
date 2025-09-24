@@ -55,6 +55,8 @@
         "email": "Email QR Code",
         "sms": "SMS QR Maker",
         "contact": "Contact QR Code",
+        "facts": "QR Code Facts",
+        "useCases": "QR Code Use Cases",
         "footerTitle": "QR Code Generator",
         "footerSubtitle": "Create QR codes instantly",
         "ariaMainMenu": "Main menu",
