@@ -1,47 +1,47 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { trackPageView } from '../lib/analytics'
 
-export function Analytics() {
-  const { i18n } = useTranslation()
+interface AnalyticsProps {
+  trackingId?: string
+}
 
+export function Analytics({ trackingId }: AnalyticsProps) {
   useEffect(() => {
-    // Only track if i18n is available and window is defined
-    if (typeof window === 'undefined' || !i18n) {
-      return
+    if (!trackingId || typeof window === 'undefined') return
+
+    // Load Google Analytics script
+    const script = document.createElement('script')
+    script.async = true
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${trackingId}`
+    document.head.appendChild(script)
+
+    // Initialize gtag
+    window.dataLayer = window.dataLayer || []
+    function gtag(...args: any[]) {
+      window.dataLayer.push(args)
     }
+    window.gtag = gtag
 
-    try {
-      // Track page view on mount
-      trackPageView(window.location.pathname, { language: i18n.language || 'en' })
+    gtag('js', new Date())
+    gtag('config', trackingId)
 
-      // Track language changes
-      const handleLanguageChange = (lng: string) => {
-        trackPageView(window.location.pathname, { language: lng })
+    return () => {
+      // Cleanup on unmount
+      const existingScript = document.querySelector(`script[src*="${trackingId}"]`)
+      if (existingScript) {
+        existingScript.remove()
       }
-
-      i18n.on('languageChanged', handleLanguageChange)
-
-      return () => {
-        i18n.off('languageChanged', handleLanguageChange)
-      }
-    } catch (error) {
-      console.warn('Analytics tracking failed:', error)
     }
-  }, [i18n])
+  }, [trackingId])
 
-  // This component doesn't render anything
   return null
 }
 
-
-
-
-
-
-
-
-
-
+// Extend Window interface for gtag
+declare global {
+  interface Window {
+    dataLayer: any[]
+    gtag: (...args: any[]) => void
+  }
+}

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { trackEvent } from '../lib/analytics'
+import { trackEvent, QR_EVENTS } from '../lib/analytics'
 import { useTranslation } from 'react-i18next'
 import { usePathname } from 'next/navigation'
 import { getLocaleFromPathname, getLocalizedPathname } from '../lib/locales'
@@ -135,7 +135,7 @@ export function NavigationMenu({ isOpen, onClose }: NavigationMenuProps) {
   }, [isOpen, onClose])
 
   const handleLinkClick = (href: string, labelKey: string) => {
-    trackEvent('navigation_click', { href, label: t(labelKey) })
+    trackEvent(QR_EVENTS.PAGE_VIEW(href))
     onClose()
     
     // Haptic feedback

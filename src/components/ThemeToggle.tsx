@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { trackEvent, QR_EVENTS } from '../lib/analytics'
 
 type Theme = 'light' | 'dark' | 'system'
 
@@ -37,6 +38,9 @@ export function ThemeToggle() {
     setTheme(newTheme)
     localStorage.setItem('theme', newTheme)
     applyTheme(newTheme)
+    
+    // Track theme change
+    trackEvent(QR_EVENTS.THEME_CHANGED(newTheme === 'system' ? 'light' : newTheme))
   }
 
   // Toggle between light and dark

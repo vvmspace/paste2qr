@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import { trackEvent } from '../lib/analytics'
+import { trackEvent, QR_EVENTS } from '../lib/analytics'
 import i18n from '../lib/i18n-client'
 import { useTranslation } from 'react-i18next'
 import { getLocaleFromPathname, getLocalizedPathname } from '../lib/locales'
@@ -50,7 +50,7 @@ export function LanguageSwitcher({ currentLanguage }: LanguageSwitcherProps) {
     i18n.changeLanguage(languageCode)
     
     // Track analytics
-    trackEvent('language_changed', { language: languageCode })
+    trackEvent(QR_EVENTS.LANGUAGE_CHANGED(languageCode))
     
     // Haptic feedback for mobile
     if ('vibrate' in navigator) {

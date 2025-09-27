@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { trackEvent } from '../lib/analytics'
+import { trackEvent, QR_EVENTS } from '../lib/analytics'
 import { useTranslation } from 'react-i18next'
 
 interface PublishModalProps {
@@ -42,15 +42,10 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
       
       setPublishedUrl(result.url)
       
-      trackEvent('qr_published', { 
-        alias: result.id, 
-        hasTitle: !!formData.title, 
-        hasDescription: !!formData.description,
-        language: formData.language 
-      })
+      trackEvent(QR_EVENTS.QR_PUBLISHED('text'))
     } catch (err) {
       setError(err instanceof Error ? err.message : t('publish.failed'))
-      trackEvent('qr_publish_error', { error: err instanceof Error ? err.message : 'Unknown error' })
+      trackEvent(QR_EVENTS.ERROR_OCCURRED(err instanceof Error ? err.message : 'Unknown error'))
     } finally {
       setIsPublishing(false)
     }
@@ -61,7 +56,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
     
     try {
       await navigator.clipboard.writeText(publishedUrl)
-      trackEvent('published_url_copied')
+      trackEvent(QR_EVENTS.QR_COPIED())
     } catch (error) {
       console.error('Failed to copy URL:', error)
     }

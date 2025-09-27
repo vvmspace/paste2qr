@@ -1,75 +1,162 @@
-// Mock analytics function for tracking events
-export function trackEvent(eventName: string, properties?: Record<string, any>) {
-  // Mock implementation - can be replaced with real analytics service
-  if (typeof window !== 'undefined') {
-    console.log('Analytics Event:', eventName, properties)
+// Analytics utility functions
+// This provides an abstraction layer for analytics events
+
+interface AnalyticsEvent {
+  action: string
+  category: string
+  label?: string
+  value?: number
+}
+
+interface AnalyticsPageView {
+  page_title: string
+  page_location: string
+  page_path: string
+}
+
+// Mock analytics implementation
+class MockAnalytics {
+  private events: AnalyticsEvent[] = []
+  private pageViews: AnalyticsPageView[] = []
+
+  // Track custom events
+  trackEvent(event: AnalyticsEvent) {
+    console.log('📊 Analytics Event:', event)
+    this.events.push(event)
     
-    // Mock sending to analytics service
-    // In real implementation, this would send to Google Analytics, Mixpanel, etc.
-    try {
-      // Example: gtag('event', eventName, properties)
-      // Example: mixpanel.track(eventName, properties)
-    } catch (error) {
-      console.warn('Analytics tracking failed:', error)
+    // Send to Google Analytics if available
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', event.action, {
+        event_category: event.category,
+        event_label: event.label,
+        value: event.value
+      })
     }
+  }
+
+  // Track page views
+  trackPageView(pageView: AnalyticsPageView) {
+    console.log('📊 Analytics Page View:', pageView)
+    this.pageViews.push(pageView)
+    
+    // Send to Google Analytics if available
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('config', 'G-YSKXMZGQVF', {
+        page_title: pageView.page_title,
+        page_location: pageView.page_location,
+        page_path: pageView.page_path
+      })
+    }
+  }
+
+  // Get tracked events (for debugging)
+  getEvents() {
+    return this.events
+  }
+
+  // Get tracked page views (for debugging)
+  getPageViews() {
+    return this.pageViews
+  }
+
+  // Clear all data (for testing)
+  clear() {
+    this.events = []
+    this.pageViews = []
   }
 }
 
-// Key business metrics to track
-export const METRICS = {
-  QR_GENERATED: 'qr_generated',
-  QR_DOWNLOADED: 'qr_downloaded',
-  QR_SHARED: 'qr_shared',
-  TEXT_PASTED: 'text_pasted',
-  PAGE_VIEWED: 'page_viewed',
-  PUBLISH_CLICKED: 'publish_clicked',
-  LANGUAGE_CHANGED: 'language_changed',
-  ERROR_OCCURRED: 'error_occurred',
-} as const
+// Create singleton instance
+const analytics = new MockAnalytics()
 
-// Track page views
-export function trackPageView(pageName: string, properties?: Record<string, any>) {
-  trackEvent(METRICS.PAGE_VIEWED, {
-    page: pageName,
-    ...properties
+// Export functions for easy use
+export const trackEvent = (event: AnalyticsEvent) => analytics.trackEvent(event)
+export const trackPageView = (pageView: AnalyticsPageView) => analytics.trackPageView(pageView)
+export const getAnalyticsData = () => ({
+  events: analytics.getEvents(),
+  pageViews: analytics.getPageViews()
+})
+export const clearAnalytics = () => analytics.clear()
+
+// Predefined event types for QR Code Generator
+export const QR_EVENTS = {
+  // QR Code Generation
+  QR_GENERATED: (method: 'paste' | 'type' | 'upload') => ({
+    action: 'qr_generated',
+    category: 'QR_Generation',
+    label: method
+  }),
+  
+  QR_COPIED: () => ({
+    action: 'qr_copied',
+    category: 'QR_Actions',
+    label: 'copy'
+  }),
+  
+  QR_DOWNLOADED: (format: 'png' | 'svg' | 'pdf') => ({
+    action: 'qr_downloaded',
+    category: 'QR_Actions',
+    label: format
+  }),
+  
+  QR_SHARED: (method: 'link' | 'social' | 'email') => ({
+    action: 'qr_shared',
+    category: 'QR_Actions',
+    label: method
+  }),
+  
+  // Page Navigation
+  PAGE_VIEW: (page: string) => ({
+    action: 'page_view',
+    category: 'Navigation',
+    label: page
+  }),
+  
+  MENU_OPENED: () => ({
+    action: 'menu_opened',
+    category: 'Navigation',
+    label: 'hamburger_menu'
+  }),
+  
+  LANGUAGE_CHANGED: (language: string) => ({
+    action: 'language_changed',
+    category: 'Settings',
+    label: language
+  }),
+  
+  THEME_CHANGED: (theme: 'light' | 'dark') => ({
+    action: 'theme_changed',
+    category: 'Settings',
+    label: theme
+  }),
+  
+  // QR Code Publishing
+  QR_PUBLISHED: (type: 'contact' | 'wifi' | 'url' | 'text') => ({
+    action: 'qr_published',
+    category: 'Publishing',
+    label: type
+  }),
+  
+  // User Engagement
+  PASTE_BUTTON_CLICKED: () => ({
+    action: 'paste_button_clicked',
+    category: 'User_Interaction',
+    label: 'paste_button'
+  }),
+  
+  GENERATE_BUTTON_CLICKED: () => ({
+    action: 'generate_button_clicked',
+    category: 'User_Interaction',
+    label: 'generate_button'
+  }),
+  
+  // Error Tracking
+  ERROR_OCCURRED: (error: string) => ({
+    action: 'error_occurred',
+    category: 'Errors',
+    label: error
   })
 }
 
-// Track QR code generation
-export function trackQRGenerated(properties?: Record<string, any>) {
-  trackEvent(METRICS.QR_GENERATED, properties)
-}
-
-// Track QR code download
-export function trackQRDownloaded(properties?: Record<string, any>) {
-  trackEvent(METRICS.QR_DOWNLOADED, properties)
-}
-
-// Track QR code sharing
-export function trackQRShared(properties?: Record<string, any>) {
-  trackEvent(METRICS.QR_SHARED, properties)
-}
-
-// Track text pasting
-export function trackTextPasted(properties?: Record<string, any>) {
-  trackEvent(METRICS.TEXT_PASTED, properties)
-}
-
-// Track publish button clicks
-export function trackPublishClicked(properties?: Record<string, any>) {
-  trackEvent(METRICS.PUBLISH_CLICKED, properties)
-}
-
-// Track language changes
-export function trackLanguageChanged(properties?: Record<string, any>) {
-  trackEvent(METRICS.LANGUAGE_CHANGED, properties)
-}
-
-// Track errors
-export function trackError(error: Error | string, properties?: Record<string, any>) {
-  trackEvent(METRICS.ERROR_OCCURRED, {
-    error: typeof error === 'string' ? error : error.message,
-    stack: typeof error === 'object' ? error.stack : undefined,
-    ...properties
-  })
-}
+// Export the analytics instance for advanced usage
+export default analytics

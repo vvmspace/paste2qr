@@ -2,9 +2,13 @@ import { UniversalPage } from '../components/UniversalPage'
 import { getLocalizedSEO } from '../lib/seo'
 import { generateStructuredData } from '../lib/seo'
 import { getLocalizedMDXContent } from '../lib/mdxLoader'
+import { getDefaultLocale } from '../lib/locales'
+
+// Get default locale from environment
+const defaultLocale = getDefaultLocale()
 
 export async function generateMetadata() {
-  const seo = getLocalizedSEO('home', 'en')
+  const seo = getLocalizedSEO('home', defaultLocale)
   
   return {
     title: seo.title,
@@ -19,7 +23,10 @@ export async function generateMetadata() {
       description: seo.description,
       url: seo.canonicalUrl,
       siteName: 'Paste2QR',
-      locale: 'en_US',
+      locale: defaultLocale === 'en' ? 'en_US' : 
+              defaultLocale === 'es' ? 'es_ES' :
+              defaultLocale === 'zh' ? 'zh_CN' :
+              defaultLocale === 'fr' ? 'fr_FR' : 'en_US',
       type: 'website',
     },
     twitter: {
@@ -37,9 +44,9 @@ export async function generateMetadata() {
 }
 
 export default async function HomePage() {
-  const seo = getLocalizedSEO('home', 'en')
-  const structuredData = generateStructuredData('home', 'en', seo.canonicalUrl)
-  const mdxSource = await getLocalizedMDXContent('home', 'en')
+  const seo = getLocalizedSEO('home', defaultLocale)
+  const structuredData = generateStructuredData('home', defaultLocale, seo.canonicalUrl)
+  const mdxSource = await getLocalizedMDXContent('home', defaultLocale)
   
   return (
     <>
@@ -54,9 +61,9 @@ export default async function HomePage() {
         canonicalUrl: seo.canonicalUrl,
         heroTitle: seo.title,
         heroSubtitle: seo.description,
-        heroButtonText: 'Paste & Generate',
+        heroButtonText: defaultLocale === 'es' ? 'Pegar y Generar' : 'Paste & Generate',
         heroGradient: 'from-blue-600 to-blue-800',
-      }} mdxSource={mdxSource || undefined} locale="en" />
+      }} mdxSource={mdxSource || undefined} locale={defaultLocale} />
     </>
   )
 }

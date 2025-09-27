@@ -3,9 +3,8 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { PWAInstallPrompt } from '../components/PWAInstallPrompt'
 import { Providers } from '../components/Providers'
+import { Analytics } from '../components/Analytics'
 import { supportedLocales, defaultLocale, getLocaleFromPathname } from '../lib/locales'
-// import { Providers } from '../components/Providers'
-// import { Analytics } from '../components/Analytics'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -95,8 +94,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const currentLocale = getDefaultLocale()
   return (
-    <html lang={defaultLocale} suppressHydrationWarning>
+    <html lang={currentLocale} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -122,6 +122,7 @@ export default function RootLayout({
         ))}
       </head>
       <body className={`${inter.className} antialiased`}>
+        <Analytics trackingId="G-YSKXMZGQVF" />
         <div className="min-h-screen bg-gray-50">
           <Providers>
             {children}

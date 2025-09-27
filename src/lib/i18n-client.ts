@@ -37,7 +37,7 @@ const getNodeEnv = () => {
   }
 }
 
-// Get locale from URL pathname
+// Get locale from URL pathname or default locale
 const getLocaleFromURL = () => {
   if (typeof window === 'undefined') {
     return getDefaultLocale()
@@ -52,6 +52,7 @@ const getLocaleFromURL = () => {
     return firstSegment
   }
   
+  // For root path, use default locale from environment
   return getDefaultLocale()
 }
 

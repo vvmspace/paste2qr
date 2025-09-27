@@ -34,7 +34,9 @@
         "demo:content-pages": "node scripts/test-content-pages.js --timeout=1000",
         "demo:content-seo": "node scripts/test-content-seo.js --timeout=1000",
         "demo:content-performance": "node scripts/test-content-performance.js --timeout=1000",
-        "demo:navigation-menu": "node scripts/test-navigation-menu.js --timeout=1000"
+        "demo:navigation-menu": "node scripts/test-navigation-menu.js --timeout=1000",
+        "test:analytics": "node scripts/test-analytics.js",
+        "demo:analytics": "node scripts/test-analytics.js --timeout=1000"
     },
     "dependencies": {
         "chrome-launcher": "^1.2.0",
