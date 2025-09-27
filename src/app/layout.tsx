@@ -4,6 +4,7 @@ import './globals.css'
 import { PWAInstallPrompt } from '../components/PWAInstallPrompt'
 import { Providers } from '../components/Providers'
 import { Analytics } from '../components/Analytics'
+import { PageViewTracker } from '../components/PageViewTracker'
 import { supportedLocales, defaultLocale, getLocaleFromPathname } from '../lib/locales'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -123,6 +124,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} antialiased`}>
         <Analytics trackingId="G-YSKXMZGQVF" />
+        <PageViewTracker trackingId="G-YSKXMZGQVF" />
         <div className="min-h-screen bg-gray-50">
           <Providers>
             {children}

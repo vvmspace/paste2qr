@@ -83,7 +83,7 @@ export function Navigation({ locale }: NavigationProps = {}) {
             <button 
               onClick={() => {
                 setIsMenuOpen(true)
-                trackEvent(QR_EVENTS.MENU_OPENED())
+                trackEvent('menu_opened')
               }}
               className="p-3 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-200 shadow-lg hover:shadow-xl active:scale-95"
               aria-label="Open menu"

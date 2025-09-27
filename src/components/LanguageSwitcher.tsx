@@ -50,7 +50,7 @@ export function LanguageSwitcher({ currentLanguage }: LanguageSwitcherProps) {
     i18n.changeLanguage(languageCode)
     
     // Track analytics
-    trackEvent(QR_EVENTS.LANGUAGE_CHANGED(languageCode))
+    trackEvent('language_changed', { language: languageCode })
     
     // Haptic feedback for mobile
     if ('vibrate' in navigator) {

@@ -1,162 +1,59 @@
 // Analytics utility functions
 // This provides an abstraction layer for analytics events
 
-interface AnalyticsEvent {
-  action: string
-  category: string
-  label?: string
-  value?: number
-}
+// Define a type for supported event names and their parameters
+type AnalyticsEvent =
+  | { name: 'qr_generated'; params: { type: 'paste' | 'manual' } }
+  | { name: 'qr_copied'; params?: undefined }
+  | { name: 'qr_downloaded'; params: { format: 'png' | 'svg' } }
+  | { name: 'qr_shared'; params: { method: 'link' | 'image' } }
+  | { name: 'menu_opened'; params?: undefined }
+  | { name: 'language_changed'; params: { language: string } }
+  | { name: 'theme_changed'; params: { theme: 'light' | 'dark' } }
+  | { name: 'paste_button_clicked'; params?: undefined }
+  | { name: 'generate_button_clicked'; params?: undefined }
+  | { name: 'error_occurred'; params: { message: string } }
+  | { name: 'page_view'; params: { page: string } }
+  | { name: 'qr_published'; params: { type: string } }
 
-interface AnalyticsPageView {
-  page_title: string
-  page_location: string
-  page_path: string
-}
-
-// Mock analytics implementation
-class MockAnalytics {
-  private events: AnalyticsEvent[] = []
-  private pageViews: AnalyticsPageView[] = []
-
-  // Track custom events
-  trackEvent(event: AnalyticsEvent) {
-    console.log('📊 Analytics Event:', event)
-    this.events.push(event)
-    
-    // Send to Google Analytics if available
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', event.action, {
-        event_category: event.category,
-        event_label: event.label,
-        value: event.value
-      })
+// Abstracted event tracking function
+export const trackEvent = (event: AnalyticsEvent['name'], params?: AnalyticsEvent['params']) => {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    // Use proper GA4 format with event parameters
+    const eventParams: any = {
+      event_category: 'QR_Generator',
+      event_label: event,
+      value: 1
     }
-  }
-
-  // Track page views
-  trackPageView(pageView: AnalyticsPageView) {
-    console.log('📊 Analytics Page View:', pageView)
-    this.pageViews.push(pageView)
     
-    // Send to Google Analytics if available
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('config', 'G-YSKXMZGQVF', {
-        page_title: pageView.page_title,
-        page_location: pageView.page_location,
-        page_path: pageView.page_path
-      })
+    // Add specific parameters based on event type
+    if (params) {
+      if ('type' in params) eventParams.type = params.type
+      if ('format' in params) eventParams.format = params.format
+      if ('method' in params) eventParams.method = params.method
+      if ('language' in params) eventParams.language = params.language
+      if ('theme' in params) eventParams.theme = params.theme
+      if ('page' in params) eventParams.page = params.page
+      if ('message' in params) eventParams.message = params.message
     }
-  }
-
-  // Get tracked events (for debugging)
-  getEvents() {
-    return this.events
-  }
-
-  // Get tracked page views (for debugging)
-  getPageViews() {
-    return this.pageViews
-  }
-
-  // Clear all data (for testing)
-  clear() {
-    this.events = []
-    this.pageViews = []
+    
+    (window as any).gtag('event', event, eventParams)
+  } else {
+    // Fallback for environments where gtag is not available (e.g., during SSR or testing)
+    console.log(`Analytics Event: ${event}`, params)
   }
 }
 
-// Create singleton instance
-const analytics = new MockAnalytics()
-
-// Export functions for easy use
-export const trackEvent = (event: AnalyticsEvent) => analytics.trackEvent(event)
-export const trackPageView = (pageView: AnalyticsPageView) => analytics.trackPageView(pageView)
-export const getAnalyticsData = () => ({
-  events: analytics.getEvents(),
-  pageViews: analytics.getPageViews()
-})
-export const clearAnalytics = () => analytics.clear()
-
-// Predefined event types for QR Code Generator
+// Centralized event names for consistency
 export const QR_EVENTS = {
-  // QR Code Generation
-  QR_GENERATED: (method: 'paste' | 'type' | 'upload') => ({
-    action: 'qr_generated',
-    category: 'QR_Generation',
-    label: method
-  }),
-  
-  QR_COPIED: () => ({
-    action: 'qr_copied',
-    category: 'QR_Actions',
-    label: 'copy'
-  }),
-  
-  QR_DOWNLOADED: (format: 'png' | 'svg' | 'pdf') => ({
-    action: 'qr_downloaded',
-    category: 'QR_Actions',
-    label: format
-  }),
-  
-  QR_SHARED: (method: 'link' | 'social' | 'email') => ({
-    action: 'qr_shared',
-    category: 'QR_Actions',
-    label: method
-  }),
-  
-  // Page Navigation
-  PAGE_VIEW: (page: string) => ({
-    action: 'page_view',
-    category: 'Navigation',
-    label: page
-  }),
-  
-  MENU_OPENED: () => ({
-    action: 'menu_opened',
-    category: 'Navigation',
-    label: 'hamburger_menu'
-  }),
-  
-  LANGUAGE_CHANGED: (language: string) => ({
-    action: 'language_changed',
-    category: 'Settings',
-    label: language
-  }),
-  
-  THEME_CHANGED: (theme: 'light' | 'dark') => ({
-    action: 'theme_changed',
-    category: 'Settings',
-    label: theme
-  }),
-  
-  // QR Code Publishing
-  QR_PUBLISHED: (type: 'contact' | 'wifi' | 'url' | 'text') => ({
-    action: 'qr_published',
-    category: 'Publishing',
-    label: type
-  }),
-  
-  // User Engagement
-  PASTE_BUTTON_CLICKED: () => ({
-    action: 'paste_button_clicked',
-    category: 'User_Interaction',
-    label: 'paste_button'
-  }),
-  
-  GENERATE_BUTTON_CLICKED: () => ({
-    action: 'generate_button_clicked',
-    category: 'User_Interaction',
-    label: 'generate_button'
-  }),
-  
-  // Error Tracking
-  ERROR_OCCURRED: (error: string) => ({
-    action: 'error_occurred',
-    category: 'Errors',
-    label: error
-  })
+  QR_GENERATED: (type: 'paste' | 'manual') => ({ name: 'qr_generated', params: { type } }),
+  QR_COPIED: () => ({ name: 'qr_copied' }),
+  QR_DOWNLOADED: (format: 'png' | 'svg') => ({ name: 'qr_downloaded', params: { format } }),
+  QR_SHARED: (method: 'link' | 'image') => ({ name: 'qr_shared', params: { method } }),
+  MENU_OPENED: () => ({ name: 'menu_opened' }),
+  LANGUAGE_CHANGED: (language: string) => ({ name: 'language_changed', params: { language } }),
+  THEME_CHANGED: (theme: 'light' | 'dark') => ({ name: 'theme_changed', params: { theme } }),
+  PASTE_BUTTON_CLICKED: () => ({ name: 'paste_button_clicked' }),
+  GENERATE_BUTTON_CLICKED: () => ({ name: 'generate_button_clicked' }),
+  ERROR_OCCURRED: (message: string) => ({ name: 'error_occurred', params: { message } }),
 }
-
-// Export the analytics instance for advanced usage
-export default analytics

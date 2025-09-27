@@ -65,10 +65,10 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
       })
 
       setQrCodeDataUrl(dataUrl)
-        trackEvent(QR_EVENTS.QR_GENERATED('paste'))
+        trackEvent('qr_generated', { type: 'paste' })
     } catch (error) {
       console.error('Error generating QR code:', error)
-      trackEvent(QR_EVENTS.ERROR_OCCURRED(error instanceof Error ? error.message : 'Unknown error'))
+      trackEvent('error_occurred', { message: error instanceof Error ? error.message : 'Unknown error' })
     } finally {
       setIsGenerating(false)
     }
@@ -144,7 +144,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
           setText(pastedText)
           setIsDefaultText(pastedText === defaultText)
           setHasUserInteracted(true)
-          trackEvent(QR_EVENTS.PASTE_BUTTON_CLICKED())
+          trackEvent('paste_button_clicked')
           
           // Focus on textarea after paste
           if (textareaRef.current) {
@@ -171,7 +171,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
         }
       }
       
-      trackEvent(QR_EVENTS.ERROR_OCCURRED('Clipboard access denied'))
+        trackEvent('error_occurred', { message: 'Clipboard access denied' })
     } catch (error) {
       console.error('Failed to handle paste:', error)
       alert(t('qr.clipboardError'))
@@ -191,7 +191,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-      trackEvent(QR_EVENTS.QR_DOWNLOADED('png'))
+        trackEvent('qr_downloaded', { format: 'png' })
     }
   }, [qrCodeDataUrl])
 
@@ -206,7 +206,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
           }),
         ])
         alert(t('qr.copied'))
-        trackEvent(QR_EVENTS.QR_COPIED())
+        trackEvent('qr_copied')
       } catch (error) {
         console.error('Failed to copy QR code:', error)
         alert(t('qr.copyFailed'))
@@ -224,7 +224,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
       }
       
       await navigator.clipboard.writeText(text)
-      trackEvent(QR_EVENTS.PASTE_BUTTON_CLICKED())
+      trackEvent('paste_button_clicked')
       
       // Show feedback
       const button = document.querySelector('[data-copy-button]') as HTMLElement
@@ -265,7 +265,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
         await handleCopy()
       }
       
-      trackEvent(QR_EVENTS.QR_SHARED('link'))
+        trackEvent('qr_shared', { method: 'link' })
     } catch (error) {
       console.error('Failed to share QR code:', error)
     }
@@ -281,7 +281,7 @@ export function QRGenerator({ originalText, pageConfig }: QRGeneratorProps = {})
     setQrCodeDataUrl(null)
     setIsDefaultText(false)
     setHasUserInteracted(false)
-    trackEvent(QR_EVENTS.PASTE_BUTTON_CLICKED())
+    trackEvent('paste_button_clicked')
     
     // Focus on textarea after clear
     if (textareaRef.current) {

@@ -40,7 +40,7 @@ export function ThemeToggle() {
     applyTheme(newTheme)
     
     // Track theme change
-    trackEvent(QR_EVENTS.THEME_CHANGED(newTheme === 'system' ? 'light' : newTheme))
+    trackEvent('theme_changed', { theme: newTheme === 'system' ? 'light' : newTheme })
   }
 
   // Toggle between light and dark

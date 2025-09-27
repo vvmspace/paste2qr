@@ -1,5 +1,6 @@
 'use client'
 
+import Script from 'next/script'
 import { useEffect } from 'react'
 
 interface AnalyticsProps {
@@ -10,32 +11,39 @@ export function Analytics({ trackingId }: AnalyticsProps) {
   useEffect(() => {
     if (!trackingId || typeof window === 'undefined') return
 
-    // Load Google Analytics script
-    const script = document.createElement('script')
-    script.async = true
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${trackingId}`
-    document.head.appendChild(script)
-
-    // Initialize gtag
+    // Initialize dataLayer first
     window.dataLayer = window.dataLayer || []
-    function gtag(...args: any[]) {
+    
+    // Define gtag function
+    window.gtag = window.gtag || function(...args: any[]) {
       window.dataLayer.push(args)
-    }
-    window.gtag = gtag
-
-    gtag('js', new Date())
-    gtag('config', trackingId)
-
-    return () => {
-      // Cleanup on unmount
-      const existingScript = document.querySelector(`script[src*="${trackingId}"]`)
-      if (existingScript) {
-        existingScript.remove()
-      }
     }
   }, [trackingId])
 
-  return null
+  if (!trackingId) return null
+
+  return (
+    <>
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${trackingId}`}
+      />
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${trackingId}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
+    </>
+  )
 }
 
 // Extend Window interface for gtag

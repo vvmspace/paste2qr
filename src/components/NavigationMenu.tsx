@@ -135,7 +135,7 @@ export function NavigationMenu({ isOpen, onClose }: NavigationMenuProps) {
   }, [isOpen, onClose])
 
   const handleLinkClick = (href: string, labelKey: string) => {
-    trackEvent(QR_EVENTS.PAGE_VIEW(href))
+    trackEvent('page_view', { page: href })
     onClose()
     
     // Haptic feedback

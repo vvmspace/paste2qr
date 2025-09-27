@@ -42,10 +42,10 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
       
       setPublishedUrl(result.url)
       
-      trackEvent(QR_EVENTS.QR_PUBLISHED('text'))
+      trackEvent('qr_published', { type: 'text' })
     } catch (err) {
       setError(err instanceof Error ? err.message : t('publish.failed'))
-      trackEvent(QR_EVENTS.ERROR_OCCURRED(err instanceof Error ? err.message : 'Unknown error'))
+      trackEvent('error_occurred', { message: err instanceof Error ? err.message : 'Unknown error' })
     } finally {
       setIsPublishing(false)
     }
@@ -56,7 +56,7 @@ export function PublishModal({ qrCodeDataUrl, text, prefix, onClose }: PublishMo
     
     try {
       await navigator.clipboard.writeText(publishedUrl)
-      trackEvent(QR_EVENTS.QR_COPIED())
+      trackEvent('qr_copied')
     } catch (error) {
       console.error('Failed to copy URL:', error)
     }
