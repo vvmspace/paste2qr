@@ -370,5 +370,13 @@
         "copyUrl": "Copiar URL",
         "close": "Fechar",
         "failed": "Falha ao publicar"
+    },
+    "security": {
+        "clientSideGeneration": "Os códigos QR são gerados inteiramente no seu dispositivo - nenhum dado é enviado para nossos servidores",
+        "noDataStorage": "Suas informações nunca são armazenadas em lugar nenhum, a menos que você escolha publicá-las",
+        "visualTransmission": "A transmissão visual é considerada um dos métodos mais seguros para compartilhar informações",
+        "deviceSecurity": "Para máxima segurança, certifique-se de confiar no seu dispositivo e rede",
+        "githubSource": "Ver código fonte no GitHub",
+        "privacyFirst": "Abordagem de privacidade primeiro: tudo acontece localmente no seu dispositivo"
     }
 }

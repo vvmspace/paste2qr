@@ -69,5 +69,13 @@
     },
     "header": {
         "title": "Pegar a Código QR"
+    },
+    "security": {
+        "clientSideGeneration": "Los códigos QR se generan completamente en tu dispositivo - no se envían datos a nuestros servidores",
+        "noDataStorage": "Tu información nunca se almacena en ningún lugar a menos que elijas publicarla",
+        "visualTransmission": "La transmisión visual se considera uno de los métodos más seguros para compartir información",
+        "deviceSecurity": "Para máxima seguridad, asegúrate de confiar en tu dispositivo y red",
+        "githubSource": "Ver código fuente en GitHub",
+        "privacyFirst": "Enfoque de privacidad primero: todo sucede localmente en tu dispositivo"
     }
 }

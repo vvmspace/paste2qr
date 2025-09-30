@@ -69,5 +69,13 @@
     },
     "header": {
         "title": "粘贴生成二维码"
+    },
+    "security": {
+        "clientSideGeneration": "二维码完全在您的设备上生成 - 不会向我们的服务器发送任何数据",
+        "noDataStorage": "除非您选择发布，否则您的信息永远不会被存储在任何地方",
+        "visualTransmission": "视觉传输被认为是分享信息最安全的方法之一",
+        "deviceSecurity": "为了最大安全性，请确保您信任您的设备和网络",
+        "githubSource": "在GitHub上查看源代码",
+        "privacyFirst": "隐私优先方法：一切都在您的设备本地进行"
     }
 }

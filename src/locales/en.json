@@ -69,5 +69,13 @@
     },
     "header": {
         "title": "Paste to QR Code"
+    },
+    "security": {
+        "clientSideGeneration": "QR codes are generated entirely on your device - no data is sent to our servers",
+        "noDataStorage": "Your information is never stored anywhere unless you choose to publish it",
+        "visualTransmission": "Visual transmission is considered one of the safest methods for sharing information",
+        "deviceSecurity": "For maximum security, ensure you trust your device and network",
+        "githubSource": "View source code on GitHub",
+        "privacyFirst": "Privacy-first approach: everything happens locally on your device"
     }
 }

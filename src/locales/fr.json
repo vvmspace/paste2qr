@@ -69,5 +69,13 @@
     },
     "header": {
         "title": "Coller vers Code QR"
+    },
+    "security": {
+        "clientSideGeneration": "Les codes QR sont générés entièrement sur votre appareil - aucune donnée n'est envoyée à nos serveurs",
+        "noDataStorage": "Vos informations ne sont jamais stockées nulle part sauf si vous choisissez de les publier",
+        "visualTransmission": "La transmission visuelle est considérée comme l'une des méthodes les plus sûres pour partager des informations",
+        "deviceSecurity": "Pour une sécurité maximale, assurez-vous de faire confiance à votre appareil et à votre réseau",
+        "githubSource": "Voir le code source sur GitHub",
+        "privacyFirst": "Approche axée sur la confidentialité : tout se passe localement sur votre appareil"
     }
 }
